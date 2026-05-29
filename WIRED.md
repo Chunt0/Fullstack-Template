@@ -52,5 +52,6 @@ One-page index of every wired capability. If it's here, don't rebuild it.
 | One service, volume, port | `docker-compose.yml` |
 | Pre-commit hooks | `.lefthook.yml` |
 | Bootstrap | `scripts/init-project.sh` |
+| Dev launcher (parallel API + Vite) | `scripts/dev.sh` |
 | Backup / restore | `scripts/backup.sh`, `scripts/restore.sh` |
 | Reference check / eject | `scripts/check-reference.sh`, `scripts/eject-reference.sh` |

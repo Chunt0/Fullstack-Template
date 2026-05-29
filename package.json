@@ -4,7 +4,7 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
-    "dev": "bun --filter '*' dev",
+    "dev": "bash scripts/dev.sh",
     "build": "bun --filter '@app/frontend' build",
     "test": "bun --filter '*' test",
     "type-check": "bun --filter '*' type-check",
