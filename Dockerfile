@@ -17,7 +17,8 @@ ARG VITE_API_URL=""
 ARG VITE_AUTH_TOKEN=""
 ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_AUTH_TOKEN=$VITE_AUTH_TOKEN
-RUN bun run --filter '@app/frontend' build
+# Scope-independent (works whether or not init-project renamed the @app scope).
+RUN cd packages/frontend && bun run build
 
 # ── runtime: serve API + SPA ─────────────────────────────────────────────
 FROM oven/bun:1 AS runtime
