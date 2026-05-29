@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router'
+import { APP_NAME } from '@/lib/config'
 import { routes } from '@/routes.manifest'
 import { cn } from '@/lib/utils'
 
 export function Sidebar() {
   return (
     <aside className="hidden w-56 shrink-0 border-r border-border bg-card md:block">
-      <div className="flex h-14 items-center px-5 text-base font-semibold">App</div>
+      <div className="flex h-14 items-center px-5 text-base font-semibold">{APP_NAME}</div>
       <nav className="space-y-1 px-3 py-2">
         {routes.map((r) => (
           <NavLink

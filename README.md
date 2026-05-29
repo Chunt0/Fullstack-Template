@@ -22,7 +22,7 @@ no nginx). Type-safe end to end, SQLite-backed, one Docker image.
 ## Quickstart
 
 ```bash
-scripts/init-project.sh myapp     # rename scope, generate .env, install, migrate, seed
+scripts/init-project.sh "My App"  # generate .env (token + display name), install, migrate, seed
 
 bun run dev                       # API :4000 + Vite :3000 (HMR)
 # or the containerized stack (mirrors deploy):

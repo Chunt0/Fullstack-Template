@@ -156,7 +156,7 @@ your LAN" — transport encryption (Tailscale, etc.) is not authentication.
 ├── Dockerfile                      # single multi-stage image: build SPA → build API → runtime serving both
 ├── docker-compose.yml              # one app service, one network, one named volume
 ├── scripts/
-│   ├── init-project.sh             # rename @app/* scope, generate .env (fresh token), install, migrate, seed
+│   ├── init-project.sh             # generate .env (fresh token + display name), install, migrate, seed
 │   ├── backup.sh                   # sqlite VACUUM INTO → gzipped tarball, rotation
 │   └── restore.sh                  # untar + replace + restart
 ├── docs/
@@ -485,9 +485,9 @@ Each step ends with a **verification gate**. Do not proceed past a failing gate.
 
 This is what `CLAUDE.md` in the template encodes. The per-project build sequence:
 
-1. **Pull the template**, run `scripts/init-project.sh <name>` (renames the
-   `@app/*` workspace scope, generates `.env` with a fresh token, installs,
-   migrates, seeds).
+1. **Pull the template**, run `scripts/init-project.sh "<display name>"` (generates
+   `.env` with a fresh token + `VITE_APP_NAME`, installs, migrates, seeds). The
+   `@app/*` workspace scope is a fixed internal name and is left as-is.
 2. **Fill `NEW_PROJECT_SPEC.md`** from the template. It captures, at minimum:
    - one-line purpose · the entities/resources (fields + relationships) ·
      the pages/views · auth mode (A/B/C) · any non-default needs.

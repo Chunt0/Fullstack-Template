@@ -49,8 +49,9 @@ and proxies `/api` to the API on `:4000`.
 ## Environment variables
 
 See `.env.example`. Required: `DATABASE_PATH`, `AUTH_TOKEN`, `NODE_ENV`.
-Build-time (SPA): `VITE_API_URL` (empty = same-origin), `VITE_AUTH_TOKEN` (= `AUTH_TOKEN`).
-Optional: `ENABLE_SWAGGER`, `LOG_LEVEL`. `init-project.sh` keeps the two tokens in sync.
+Build-time (SPA): `VITE_API_URL` (empty = same-origin), `VITE_AUTH_TOKEN` (= `AUTH_TOKEN`), `VITE_APP_NAME` (display name).
+Optional: `ENABLE_SWAGGER`, `LOG_LEVEL`. `init-project.sh` sets the token (in both
+places) and the display name. The `@app/*` workspace scope is fixed and not renamed.
 
 ## Deploy, data, backups
 

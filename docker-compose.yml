@@ -3,9 +3,10 @@ services:
     build:
       context: .
       args:
-        # The SPA is same-origin (empty URL) and bakes in the shared token.
+        # The SPA is same-origin (empty URL) and bakes in the shared token + name.
         VITE_API_URL: ""
         VITE_AUTH_TOKEN: ${AUTH_TOKEN}
+        VITE_APP_NAME: ${VITE_APP_NAME:-App}
     restart: unless-stopped
     ports:
       - "3000:3000"

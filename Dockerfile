@@ -15,9 +15,11 @@ WORKDIR /app
 COPY . .
 ARG VITE_API_URL=""
 ARG VITE_AUTH_TOKEN=""
+ARG VITE_APP_NAME="App"
 ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_AUTH_TOKEN=$VITE_AUTH_TOKEN
-# Scope-independent (works whether or not init-project renamed the @app scope).
+ENV VITE_APP_NAME=$VITE_APP_NAME
+# By path (not a scoped --filter) so infra never depends on the package scope.
 RUN cd packages/frontend && bun run build
 
 # ── runtime: serve API + SPA ─────────────────────────────────────────────

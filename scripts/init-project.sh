@@ -1,46 +1,41 @@
 #!/usr/bin/env bash
-# Bootstrap a fresh clone: rename the @app/* workspace scope, generate .env with
-# a fresh token, install, migrate, seed.
-# Usage: scripts/init-project.sh <project-name>
+# Bootstrap a fresh clone: generate .env (fresh token + display name), install,
+# migrate, seed, install git hooks.
+#
+# Note: the @app/* workspace scope is a FIXED internal name and is intentionally
+# NOT renamed — it's never published or seen, so renaming it only risks drift
+# (e.g. the Dockerfile / lockfile referencing a stale scope). The project's
+# display name lives in VITE_APP_NAME and shows up in the browser tab + sidebar.
+#
+# Usage: scripts/init-project.sh "My App"
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-NAME="${1:-myapp}"
-SCOPE="$(echo "$NAME" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9-' '-' | sed 's/^-//;s/-$//')"
-[ -n "$SCOPE" ] || SCOPE="app"
+APP_NAME="${1:-App}"
+echo "==> Initializing project: $APP_NAME"
 
-echo "==> Initializing project '$NAME' (scope @$SCOPE)"
-
-# 1. Rename @app/* -> @<scope>/* across package.json + sources
-if [ "$SCOPE" != "app" ]; then
-  echo "==> Renaming @app/* -> @$SCOPE/*"
-  grep -rl '@app/' . \
-    --include='*.json' --include='*.ts' --include='*.tsx' \
-    --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=.git 2>/dev/null \
-    | while IFS= read -r f; do sed -i "s#@app/#@$SCOPE/#g" "$f"; done
-fi
-
-# 2. Generate .env with a fresh shared token
+# 1. .env with a fresh token + the display name
 if [ ! -f .env ]; then
-  echo "==> Generating .env with a fresh AUTH_TOKEN"
+  echo "==> Generating .env (fresh AUTH_TOKEN, VITE_APP_NAME=\"$APP_NAME\")"
   TOKEN="$(openssl rand -hex 32)"
-  sed -e "s#^AUTH_TOKEN=.*#AUTH_TOKEN=$TOKEN#" \
-      -e "s#^VITE_AUTH_TOKEN=.*#VITE_AUTH_TOKEN=$TOKEN#" \
+  sed -e "s|^AUTH_TOKEN=.*|AUTH_TOKEN=$TOKEN|" \
+      -e "s|^VITE_AUTH_TOKEN=.*|VITE_AUTH_TOKEN=$TOKEN|" \
+      -e "s|^VITE_APP_NAME=.*|VITE_APP_NAME=$APP_NAME|" \
       .env.example > .env
 else
   echo "==> .env already exists — leaving it untouched"
 fi
 
-# 3. Install + DB
+# 2. Install + DB
 echo "==> Installing dependencies"
 bun install
 echo "==> Migrating + seeding"
 bun run db:migrate
 bun run db:seed
 
-# 4. Git hooks (best effort — needs the gitleaks binary for the secret-scan hook)
+# 3. Git hooks (best effort — needs the gitleaks binary for the secret-scan hook)
 bunx lefthook install >/dev/null 2>&1 || echo "    (skip) run 'bunx lefthook install' once gitleaks is on PATH"
 
 cat <<EOF
