@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        # The SPA is same-origin (empty URL) and bakes in the shared token.
+        VITE_API_URL: ""
+        VITE_AUTH_TOKEN: ${AUTH_TOKEN}
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_PATH: /data/app.db
+      AUTH_TOKEN: ${AUTH_TOKEN}
+      ENABLE_SWAGGER: ${ENABLE_SWAGGER:-false}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    volumes:
+      - app-data:/data
+
+volumes:
+  app-data:

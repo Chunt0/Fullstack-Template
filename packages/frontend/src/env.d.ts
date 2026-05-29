@@ -1,0 +1,12 @@
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  /** API origin. Empty = same-origin (window.location.origin). Never "/api". */
+  readonly VITE_API_URL: string
+  /** Shared bearer token (auth Mode B), baked into the bundle by design. */
+  readonly VITE_AUTH_TOKEN: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}

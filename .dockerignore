@@ -1,0 +1,12 @@
+.git
+**/node_modules
+**/dist
+data
+backups
+*.db
+*.db-shm
+*.db-wal
+.env
+.env.local
+**/coverage
+*.log

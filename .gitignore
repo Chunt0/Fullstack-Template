@@ -1,0 +1,21 @@
+node_modules/
+dist/
+build/
+coverage/
+
+# data & backups (live next to the app, never in git)
+data/
+backups/
+*.db
+*.db-shm
+*.db-wal
+
+# env (commit .env.example only)
+.env
+.env.local
+.env.*.local
+
+# misc
+.DS_Store
+*.log
+last-session.txt

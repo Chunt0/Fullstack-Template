@@ -1,0 +1,32 @@
+{
+  "name": "@app/root",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "dev": "bun --filter '*' dev",
+    "build": "bun --filter '@app/frontend' build",
+    "test": "bun --filter '*' test",
+    "type-check": "bun --filter '*' type-check",
+    "lint": "eslint .",
+    "check": "bun run type-check && bun run lint && bun run test",
+    "check:reference": "bash scripts/check-reference.sh",
+    "eject:reference": "bash scripts/eject-reference.sh",
+    "db:generate": "bun --filter '@app/api' db:generate",
+    "db:migrate": "bun --filter '@app/api' db:migrate",
+    "db:seed": "bun --filter '@app/api' db:seed",
+    "db:studio": "bun --filter '@app/api' db:studio",
+    "backup": "bash scripts/backup.sh",
+    "restore": "bash scripts/restore.sh"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9",
+    "@types/bun": "^1.3.14",
+    "eslint": "^9",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
+    "lefthook": "^2.1.9",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.0"
+  }
+}

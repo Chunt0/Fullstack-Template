@@ -1,0 +1,12 @@
+pre-commit:
+  parallel: true
+  commands:
+    type-check:
+      run: bun run type-check
+    lint:
+      glob: "*.{ts,tsx}"
+      run: bunx eslint {staged_files}
+    gitleaks:
+      run: gitleaks protect --staged --no-banner --config .gitleaks.toml
+      # Requires the `gitleaks` binary on PATH (see GOTCHAS G7). Remove this
+      # block if you don't want secret scanning.

@@ -1,0 +1,14 @@
+title = "gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Template placeholders and the by-design baked-in frontend token"
+paths = [
+  '''\.env\.example$''',
+  '''SEED_SPEC\.md$''',
+]
+regexes = [
+  '''replace-me-.*''',
+]
