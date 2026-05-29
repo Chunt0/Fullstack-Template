@@ -15,13 +15,21 @@ const SECURITY_HEADERS: Record<string, string> = {
   'x-frame-options': 'DENY',
   'referrer-policy': 'no-referrer',
   'permissions-policy': 'camera=(), microphone=(), geolocation=()',
+  // connect-src is explicit: with same-origin (the default) 'self' is correct.
+  // For split-origin (a non-empty VITE_API_URL) widen it to that origin AND add
+  // CORS on the API — see GOTCHAS G13.
   'content-security-policy':
-    "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+    "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
 }
 
 export const app = new Elysia()
   .use(correlationPlugin)
-  .onAfterHandle(({ set }) => {
+  // onRequest runs before routing, so this applies to EVERY response — including
+  // 401/404/500/validation errors and unmatched routes (onAfterHandle would only
+  // run on success). Sets the correlation id + all security headers.
+  .onRequest(({ request, set }) => {
+    set.headers[REQUEST_ID_HEADER] =
+      request.headers.get(REQUEST_ID_HEADER) ?? crypto.randomUUID()
     for (const [k, v] of Object.entries(SECURITY_HEADERS)) set.headers[k] = v
   })
   .onError(({ error, code, set, request }) => {

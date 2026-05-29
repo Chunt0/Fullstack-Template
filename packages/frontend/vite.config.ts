@@ -15,6 +15,20 @@ export default defineConfig({
     // Dev: browser hits :3000, Vite forwards /api to the API on :4000.
     proxy: { '/api': { target: 'http://localhost:4000', changeOrigin: true } },
   },
+  build: {
+    // Split vendors so no single chunk dominates (and they cache independently).
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return
+          if (id.includes('@radix-ui')) return 'radix'
+          if (id.includes('@tanstack')) return 'query'
+          if (id.includes('react') || id.includes('scheduler')) return 'react'
+          return 'vendor'
+        },
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,

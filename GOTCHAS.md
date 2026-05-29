@@ -16,3 +16,4 @@ The sharp edges. Skim on clone; revisit `[deploy]` ones before exposing the app.
 | G10 | API routes register in `routes/index.ts`; pages register in `routes.manifest.ts`. It's an explicit chain (not a glob) so Eden Treaty can infer the API as a static type — add the line when you add a resource. | `[extend]` |
 | G11 | Keep the `@elysiajs/*` packages on the same minor as `elysia` (Eden's types track Elysia). | `[extend]` |
 | G12 | Dev runs the API on `:4000` and Vite on `:3000` (Vite proxies `/api`). Production is a single Bun process on `:3000`. Don't set `PORT` in `.env`. | `[dev]` |
+| G13 | The CSP is `connect-src 'self'` (same-origin, the default). If you set a non-empty `VITE_API_URL` for split-origin serving, the SPA's API calls get blocked until you widen `connect-src` to that origin in `app.ts` — and you'll also need CORS on the API. | `[extend]` |
