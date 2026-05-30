@@ -17,7 +17,7 @@ One-page index of every wired capability. If it's here, don't rebuild it.
 | Typed errors (`AppError` + subclasses) | `lib/errors.ts` |
 | Pagination helpers | `lib/pagination.ts` |
 | Reusable `t` validators | `lib/schemas.ts` |
-| Pino logging → stdout | `lib/logger.ts` |
+| Pino logging → stdout (see `docs/LOGGING.md`) | `lib/logger.ts` |
 | DB singleton (WAL, FK, busy timeout) | `db/index.ts` |
 | Migration runner (auto on boot) | `db/migrate.ts` |
 | Idempotent seed | `db/seed.ts` |

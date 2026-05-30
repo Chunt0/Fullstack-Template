@@ -18,6 +18,7 @@ The architecture decisions are already made. Your job is to add features by
 | Always | This file |
 | Starting a project | `NEW_PROJECT_SPEC.md` (the filled brief), then the reference feature (below) |
 | Writing UI | `docs/DESIGN_SYSTEM.md` |
+| Logging / adding log calls | `docs/LOGGING.md` |
 | Placement / "where does X go" | `WIRED.md`, then `docs/ARCHITECTURE.md` |
 | Before shipping | `GOTCHAS.md`, the pre-expose checklist in `docs/ARCHITECTURE.md` |
 
