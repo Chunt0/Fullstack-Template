@@ -1,6 +1,6 @@
-# NEW_PROJECT_SPEC
+# PROJECT_BRIEF
 
-Fill this in, then hand it to Claude with: "Build this per CLAUDE.md." Describe
+Fill this in, then hand it to Claude: **"Build this per CLAUDE.md."** Describe
 *what the app does* — not *how* to build it (the template already decided that).
 Delete the guidance in parentheses as you go.
 
@@ -11,17 +11,18 @@ their uptime.")
 
 ## 2. Auth mode
 
-(A = none / B = shared token / C = login. Default B. See docs/ARCHITECTURE.md.)
+(A = none / B = shared token / C = login. Default B. See `docs/ARCHITECTURE.md`.)
 
 - Mode: **B**
 
 ## 3. Entities
 
 (One block per resource. Fields with types; mark required ones; note relations.
-The template's reference feature is `announcements` belonging to `categories` —
-follow that shape.)
+The reference feature is `announcements` belonging to `categories` — follow that
+shape.)
 
 ### <Entity> (e.g. Service)
+
 - `name` — text, required
 - `url` — text, required
 - `status` — enum: up | down | unknown
@@ -29,6 +30,7 @@ follow that shape.)
 - soft-delete? yes/no
 
 ### <Entity 2>
+
 - …
 
 ## 4. Pages / views
@@ -38,14 +40,13 @@ archetype automatically.)
 
 - **Dashboard** — overview of <…>
 - **<Entities>** — CRUD list of <entity>
-- …
 
 ## 5. Non-defaults / special needs
 
 (Anything beyond standard CRUD: file uploads, charts, a long-running/background
 operation, an external API call, a scheduled task. Leave blank if none — most
 apps need nothing here. Long-running or different-runtime work → see the escape
-hatches in docs/ARCHITECTURE.md.)
+hatches in `docs/ARCHITECTURE.md`.)
 
 -
 

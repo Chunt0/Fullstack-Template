@@ -1,5 +1,11 @@
 # SEED_SPEC.md — Full-Stack Template Generator
 
+> **Naming note.** This historical generator refers to the per-project brief as
+> `NEW_PROJECT_SPEC`. In the built template that file is now `PROJECT_BRIEF.md`
+> (same idea: a short, fill-in brief you hand to Claude to build a new app). This
+> file is the record of how the template was generated, not a guide for extending
+> it — to build features, read `CLAUDE.md`.
+
 A self-contained spec that, when followed, **builds a reusable full-stack
 template repo**. It is a *one-time generator*: run it once to birth the template,
 push that template to GitHub, and from then on you never touch this file again —

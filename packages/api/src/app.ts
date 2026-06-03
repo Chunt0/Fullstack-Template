@@ -3,12 +3,13 @@ import { staticPlugin } from '@elysiajs/static'
 import { swagger } from '@elysiajs/swagger'
 import { Elysia } from 'elysia'
 import { authPlugin } from './lib/auth'
-import { correlationPlugin, REQUEST_ID_HEADER } from './lib/correlation'
 import { env } from './lib/env'
 import { AppError } from './lib/errors'
 import { logger } from './lib/logger'
 import { errorResponse, ok } from './lib/response'
 import { routes } from './routes'
+
+export const REQUEST_ID_HEADER = 'x-request-id'
 
 const SECURITY_HEADERS: Record<string, string> = {
   'x-content-type-options': 'nosniff',
@@ -23,7 +24,6 @@ const SECURITY_HEADERS: Record<string, string> = {
 }
 
 export const app = new Elysia()
-  .use(correlationPlugin)
   // onRequest runs before routing, so this applies to EVERY response — including
   // 401/404/500/validation errors and unmatched routes (onAfterHandle would only
   // run on success). Sets the correlation id + all security headers.

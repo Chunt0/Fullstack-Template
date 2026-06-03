@@ -22,7 +22,7 @@ if [ ! -f .env ]; then
   TOKEN="$(openssl rand -hex 32)"
   sed -e "s|^AUTH_TOKEN=.*|AUTH_TOKEN=$TOKEN|" \
       -e "s|^VITE_AUTH_TOKEN=.*|VITE_AUTH_TOKEN=$TOKEN|" \
-      -e "s|^VITE_APP_NAME=.*|VITE_APP_NAME=$APP_NAME|" \
+      -e "s|^VITE_APP_NAME=.*|VITE_APP_NAME=\"$APP_NAME\"|" \
       .env.example > .env
 else
   echo "==> .env already exists — leaving it untouched"
@@ -43,5 +43,6 @@ cat <<EOF
 ==> Done.
     Dev:     bun run dev        (API :4000, Vite :3000)
     Docker:  docker compose up -d --build   (http://localhost:3000)
-    Next:    read CLAUDE.md, then build your first feature.
+    Next:    fill in PROJECT_BRIEF.md, then read CLAUDE.md and build your
+             first feature (the per-resource build sequence).
 EOF

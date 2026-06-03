@@ -11,12 +11,20 @@ Eden Treaty. SQLite + Drizzle. One Docker image, one `docker compose`.
 The architecture decisions are already made. Your job is to add features by
 **copying the reference feature's shape**, not by inventing new patterns.
 
+## Starting a new project
+
+Fill in `PROJECT_BRIEF.md` — one short page: the one-liner, auth mode, entities,
+pages, and what's out of scope. Hand it to Claude with "Build this per CLAUDE.md."
+The brief is the *what*; this file is the *how*. From there, every feature is the
+six-step build sequence below — no heavier process. For a one-line tweak, skip the
+brief and just build.
+
 ## Tiered reading (read only what the task needs)
 
 | When | Read |
 |------|------|
 | Always | This file |
-| Starting a project | `NEW_PROJECT_SPEC.md` (the filled brief), then the reference feature (below) |
+| Starting a project | `PROJECT_BRIEF.md` (the filled brief), then the reference feature (below) |
 | Writing UI | `docs/DESIGN_SYSTEM.md` |
 | Logging / adding log calls | `docs/LOGGING.md` |
 | Placement / "where does X go" | `WIRED.md`, then `docs/ARCHITECTURE.md` |

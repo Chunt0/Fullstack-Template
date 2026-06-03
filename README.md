@@ -29,6 +29,10 @@ bun run dev                       # API :4000 + Vite :3000 (HMR)
 docker compose up -d --build      # http://localhost:3000
 ```
 
+Then fill in `PROJECT_BRIEF.md` (one short page: what the app does, its entities
+and pages) and hand it to Claude with "Build this per CLAUDE.md." Claude adds each
+feature by following the build sequence in `CLAUDE.md`.
+
 ## Everyday commands
 
 ```bash
@@ -47,6 +51,7 @@ bun run eject:reference # remove the example feature once you don't need it
 - `packages/frontend` — React SPA
 - `docs/ARCHITECTURE.md` — topology, decisions, deploy, escape hatches
 - `docs/DESIGN_SYSTEM.md` — UI primitives + page archetypes
+- `PROJECT_BRIEF.md` — the one-page brief you fill in to describe a new app
 - `CLAUDE.md` — how to build features (the build sequence + conventions)
 - `WIRED.md` — one-page index of every wired capability
 - `GOTCHAS.md` — the sharp edges
