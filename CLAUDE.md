@@ -25,13 +25,25 @@ brief and just build.
 |------|------|
 | Always | This file |
 | Starting a project | `PROJECT_BRIEF.md` (the filled brief), then the reference feature (below) |
+| Specifying a feature | `specs/README.md`, then `specs/SPEC_TEMPLATE.md` |
 | Writing UI | `docs/DESIGN_SYSTEM.md` |
 | Logging / adding log calls | `docs/LOGGING.md` |
 | Placement / "where does X go" | `WIRED.md`, then `docs/ARCHITECTURE.md` |
 | Before shipping | `GOTCHAS.md`, the pre-expose checklist in `docs/ARCHITECTURE.md` |
 
-Don't read `SEED_SPEC.md` to build features — it's the doc that generated this
-template, not a guide for extending it.
+Don't read `specs/SEED_SPEC.md` to build features — it's the archived spec that
+*generated* this template, not a guide for extending it.
+
+## Specs (when you want a detailed, agent-followable plan)
+
+For anything bigger than a one-line tweak, write a **feature spec** before
+building: `cp specs/SPEC_TEMPLATE.md specs/<resource>.md`, fill in the exact
+data model / API contract / acceptance criteria, then implement it. A spec is
+the input to one run of the build sequence below; its **Acceptance** list maps
+1:1 onto the test file, so "did I follow the spec" becomes `bun run check`. Mark
+it `done @ <commit>` when green — the drift guard (`tests/specs.test.ts`) keeps
+done specs honest. Worked example: `specs/announcements.md`. Full rationale:
+`specs/README.md`.
 
 ## The reference feature (the golden path — copy it)
 

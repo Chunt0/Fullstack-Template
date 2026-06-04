@@ -1,5 +1,13 @@
 # SEED_SPEC.md — Full-Stack Template Generator
 
+- **status:** done @ dd329aa  *(archived — generated this template; superseded by the live code)*
+- **kind:** archive
+
+> **Archived.** This is the build-time spec that *generated* the template. It is
+> kept as a historical record, not a guide. The code is now the source of truth;
+> to extend the template, write a feature spec (`specs/SPEC_TEMPLATE.md`), not
+> edits here. See `specs/README.md` for the workflow.
+
 > **Naming note.** This historical generator refers to the per-project brief as
 > `NEW_PROJECT_SPEC`. In the built template that file is now `PROJECT_BRIEF.md`
 > (same idea: a short, fill-in brief you hand to Claude to build a new app). This

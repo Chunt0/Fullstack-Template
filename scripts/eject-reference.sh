@@ -16,7 +16,8 @@ rm -f \
   packages/api/src/tests/announcements.test.ts \
   packages/frontend/src/hooks/use-announcements.ts \
   packages/frontend/src/hooks/use-categories.ts \
-  packages/frontend/src/pages/AnnouncementsPage.tsx
+  packages/frontend/src/pages/AnnouncementsPage.tsx \
+  specs/announcements.md
 
 # 2. Strip REFERENCE blocks + stray REFERENCE lines from shared files.
 SHARED=(
