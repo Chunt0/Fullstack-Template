@@ -2,49 +2,76 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ----------------------------------------------------------------------------
+   FONTS — putty-ai brand faces, self-hosted from /public/fonts (no CDN).
+   Inter = UI · Fira Code = mono / brand voice.
+   ------------------------------------------------------------------------- */
+@font-face { font-family: 'Inter'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; font-style: normal; font-display: swap; src: url('/fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; font-style: normal; font-display: swap; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Fira Code'; font-weight: 300; font-style: normal; font-display: swap; src: url('/fonts/FiraCode-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Fira Code'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/FiraCode-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Fira Code'; font-weight: 600; font-style: normal; font-display: swap; src: url('/fonts/FiraCode-SemiBold.woff2') format('woff2'); }
+
+/* ----------------------------------------------------------------------------
+   TOKENS — putty-ai monochrome. Dark (.dark) is the canonical "ink" look;
+   :root is a monochrome light counterpart so the theme toggle stays meaningful.
+   Coral (--brand) is reserved for the mascot/mark only — never UI chrome.
+   ------------------------------------------------------------------------- */
 :root {
+  /* light — monochrome inverted (white canvas, ink text) */
   --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  --foreground: 240 7% 9%;
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 240 7% 9%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --primary: 222 47% 31%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  --accent: 210 40% 96%;
-  --accent-foreground: 222 47% 11%;
-  --destructive: 0 72% 51%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 222 47% 31%;
+  --popover-foreground: 240 7% 9%;
+  --primary: 240 7% 12%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 240 7% 12%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 6% 45%;
+  --accent: 220 14% 94%;
+  --accent-foreground: 240 7% 12%;
+  --destructive: 357 64% 54%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 220 13% 88%;
+  --input: 220 13% 84%;
+  --ring: 240 7% 40%;
   --radius: 0.5rem;
+
+  /* brand pop — coral mascot only */
+  --brand: 355 65% 65%;
+  --brand-highlight: 353 84% 83%;
+  --brand-glow: rgba(224, 108, 117, 0.4);
 }
 
 .dark {
-  --background: 222 47% 7%;
-  --foreground: 210 40% 98%;
-  --card: 222 47% 9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222 47% 9%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 210 40% 90%;
-  --primary-foreground: 222 47% 11%;
-  --secondary: 217 33% 17%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217 33% 17%;
-  --muted-foreground: 215 20% 65%;
-  --accent: 217 33% 17%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 63% 45%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217 33% 20%;
-  --input: 217 33% 20%;
-  --ring: 213 27% 70%;
+  /* putty ink — the hero look */
+  --background: 240 7% 6%;
+  --foreground: 220 7% 92%;
+  --card: 220 6% 9%;
+  --card-foreground: 220 7% 92%;
+  --popover: 220 6% 9%;
+  --popover-foreground: 220 7% 92%;
+  --primary: 220 7% 92%;
+  --primary-foreground: 240 7% 6%;
+  --secondary: 228 7% 14%;
+  --secondary-foreground: 220 7% 92%;
+  --muted: 228 8% 12%;
+  --muted-foreground: 220 5% 56%;
+  --accent: 228 7% 14%;
+  --accent-foreground: 220 7% 92%;
+  --destructive: 357 66% 64%;
+  --destructive-foreground: 240 7% 6%;
+  --border: 225 8% 20%;
+  --input: 225 6% 24%;
+  --ring: 220 7% 92%;
+
+  --brand: 355 65% 65%;
+  --brand-highlight: 353 84% 83%;
+  --brand-glow: rgba(224, 108, 117, 0.4);
 }
 
 @theme inline {
@@ -67,9 +94,20 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --color-brand: hsl(var(--brand));
+  --color-brand-highlight: hsl(var(--brand-highlight));
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* shape: inputs 4px · default 8px · buttons/code 10px · big cards 18px */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 10px);
+
+  /* signature easing */
+  --ease-brand: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 @layer base {
@@ -80,7 +118,72 @@
     margin: 0;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Ambient texture — faint white dot-grid + soft corner glows. Ink-only;
+     light mode keeps a barely-there grid. */
+  .dark body {
+    background-image:
+      radial-gradient(900px 480px at 88% -8%, rgba(255, 255, 255, 0.05), transparent 60%),
+      radial-gradient(760px 480px at 0% 0%, rgba(255, 255, 255, 0.03), transparent 55%),
+      radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1.4px);
+    background-size: 100% 100%, 100% 100%, 24px 24px;
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  /* Mono / brand-voice inline code */
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-sm);
+    padding: 0.1em 0.4em;
+  }
+
+  /* Quiet scrollbars in the ink theme */
+  .dark ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: hsl(var(--input));
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+    background-clip: padding-box;
+  }
+}
+
+@layer components {
+  /* Eyebrow: small, bold, wide-tracked uppercase label */
+  .od-eyebrow {
+    font-weight: 700;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--foreground));
+  }
+  /* Slogan: italic mono whisper */
+  .od-slogan {
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+    color: hsl(var(--muted-foreground));
+  }
+  /* Coral mascot glow — the single pop of color */
+  .putty-glow {
+    filter: drop-shadow(0 5px 16px var(--brand-glow));
   }
 }

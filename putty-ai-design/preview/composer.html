@@ -1,0 +1,25 @@
+<!-- @dsCard group="Components" --><!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_tokens.css"><style>
+.bar{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:12px 14px;}
+.top{display:flex;align-items:flex-start;}
+.ta{flex:1;font-family:var(--font-sans);font-size:14px;color:var(--muted);padding-top:3px;}
+.mp{font-family:var(--font-sans);font-size:12px;color:var(--fg);border:1px solid var(--border);border-radius:8px;padding:5px 10px;display:inline-flex;gap:6px;align-items:center;}
+.bot{display:flex;align-items:center;margin-top:12px;gap:8px;}
+.ib{width:30px;height:30px;border-radius:8px;color:var(--muted);display:inline-flex;align-items:center;justify-content:center;}
+.toggle{margin-left:auto;display:inline-flex;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;gap:2px;}
+.tb{font-family:var(--font-sans);font-size:12px;font-weight:600;color:var(--muted);padding:5px 13px;border-radius:999px;}
+.tb.on{background:var(--accent);color:var(--on-accent);}
+.send{width:34px;height:34px;border-radius:999px;background:var(--accent);color:var(--on-accent);display:inline-flex;align-items:center;justify-content:center;}
+svg{stroke-width:2;}
+</style></head><body><div class="card">
+<div class="lbl" style="margin-bottom:10px;">Chat composer</div>
+<div class="bar">
+  <div class="top"><div class="ta">Message putty-ai...</div>
+    <span class="mp">llama-3.1-8b <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg></span></div>
+  <div class="bot">
+    <span class="ib"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg></span>
+    <span class="ib"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+    <span class="ib"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></span>
+    <span class="toggle"><span class="tb on">Agent</span><span class="tb">Chat</span></span>
+    <span class="send"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></span>
+  </div>
+</div></div></body></html>

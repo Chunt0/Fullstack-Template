@@ -1,0 +1,54 @@
+<!-- @dsCard group="Brand" --><!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_tokens.css"><style>
+.blob-wm{font-family:var(--font-sans);font-weight:700;letter-spacing:-.02em;color:var(--heading);}
+@keyframes wobble{
+  0%,100%{transform:rotate(-3deg) scale(1.02,.98);}
+  50%{transform:rotate(3deg) scale(.98,1.02);}
+}
+.wob{transform-origin:50% 62%;animation:wobble 2.6s ease-in-out infinite;}
+@media (prefers-reduced-motion:reduce){.wob{animation:none;}}
+.face-eye{fill:#111;}
+.shine{fill:#fff;}
+.cheek{fill:#ff9aa0;opacity:.55;}
+</style></head><body><div class="card" style="display:flex;align-items:center;gap:40px;">
+
+<!-- primary lockup -->
+<div style="display:flex;align-items:center;gap:16px;">
+  <svg class="wob" width="54" height="54" viewBox="0 0 100 100" style="filter:drop-shadow(0 5px 16px rgba(224,108,117,.42));overflow:visible;">
+    <defs><radialGradient id="putty" cx="36%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#f7adb2"/><stop offset="55%" stop-color="#e06c75"/><stop offset="100%" stop-color="#d65b65"/>
+    </radialGradient></defs>
+    <path d="M50 5 C61 4 64 -1 73 5 C82 10 78 19 86 24 C95 30 91 40 93 48 C95 57 99 63 92 71 C86 78 77 73 70 81 C63 89 59 96 49 93 C40 90 36 96 28 89 C21 83 26 75 18 70 C9 65 7 56 9 48 C11 40 3 35 10 27 C16 20 25 25 31 17 C37 10 39 6 50 5 Z" fill="url(#putty)"/>
+    <ellipse class="cheek" cx="30" cy="58" rx="7" ry="4.5"/>
+    <ellipse class="cheek" cx="71" cy="58" rx="7" ry="4.5"/>
+    <ellipse class="face-eye" cx="39" cy="47" rx="6" ry="7.5"/>
+    <ellipse class="face-eye" cx="62" cy="47" rx="6" ry="7.5"/>
+    <circle class="shine" cx="41" cy="44" r="2.1"/>
+    <circle class="shine" cx="64" cy="44" r="2.1"/>
+    <path d="M41 63 q4.5 5.5 9 0" fill="none" stroke="#111" stroke-width="3.2" stroke-linecap="round"/>
+  </svg>
+  <span class="blob-wm" style="font-size:31px;">putty-ai</span>
+</div>
+
+<div style="height:54px;width:1px;background:var(--border);"></div>
+
+<!-- app-icon variants (static) -->
+<div style="display:flex;gap:18px;align-items:center;">
+  <div style="width:44px;height:44px;border-radius:12px;background:#111;display:flex;align-items:center;justify-content:center;">
+    <svg width="31" height="31" viewBox="0 0 100 100">
+      <path d="M50 5 C61 4 64 -1 73 5 C82 10 78 19 86 24 C95 30 91 40 93 48 C95 57 99 63 92 71 C86 78 77 73 70 81 C63 89 59 96 49 93 C40 90 36 96 28 89 C21 83 26 75 18 70 C9 65 7 56 9 48 C11 40 3 35 10 27 C16 20 25 25 31 17 C37 10 39 6 50 5 Z" fill="#e06c75"/>
+      <ellipse cx="39" cy="47" rx="6" ry="7.5" fill="#111"/><ellipse cx="62" cy="47" rx="6" ry="7.5" fill="#111"/>
+      <circle cx="41" cy="44" r="2" fill="#fff"/><circle cx="64" cy="44" r="2" fill="#fff"/>
+      <path d="M41 63 q4.5 5.5 9 0" fill="none" stroke="#111" stroke-width="3.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div style="width:44px;height:44px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;">
+    <svg width="31" height="31" viewBox="0 0 100 100">
+      <path d="M50 5 C61 4 64 -1 73 5 C82 10 78 19 86 24 C95 30 91 40 93 48 C95 57 99 63 92 71 C86 78 77 73 70 81 C63 89 59 96 49 93 C40 90 36 96 28 89 C21 83 26 75 18 70 C9 65 7 56 9 48 C11 40 3 35 10 27 C16 20 25 25 31 17 C37 10 39 6 50 5 Z" fill="#fff"/>
+      <ellipse cx="39" cy="47" rx="6" ry="7.5" fill="#e06c75"/><ellipse cx="62" cy="47" rx="6" ry="7.5" fill="#e06c75"/>
+      <circle cx="41" cy="44" r="2" fill="#ffd9db"/><circle cx="64" cy="44" r="2" fill="#ffd9db"/>
+      <path d="M41 63 q4.5 5.5 9 0" fill="none" stroke="#e06c75" stroke-width="3.2" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <span class="lbl">wobbly putty blob · rosy &amp; smiling</span>
+</div>
+</div></body></html>

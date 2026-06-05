@@ -1,4 +1,5 @@
 import { Monitor, Moon, Sun } from 'lucide-react'
+import { PuttyMascot } from '@/components/brand/PuttyMascot'
 import { useTheme } from '@/components/layout/ThemeProvider'
 import { APP_NAME } from '@/lib/config'
 import { Button } from '@/components/ui/button'
@@ -13,7 +14,10 @@ export function TopBar() {
   const { setTheme, resolvedTheme } = useTheme()
   return (
     <header className="flex h-14 items-center justify-between border-b border-border bg-card px-5">
-      <div className="text-base font-semibold md:hidden">{APP_NAME}</div>
+      <div className="flex items-center gap-2 md:hidden">
+        <PuttyMascot size={22} glow />
+        <span className="text-base font-bold tracking-tight lowercase">{APP_NAME}</span>
+      </div>
       <div className="ml-auto">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

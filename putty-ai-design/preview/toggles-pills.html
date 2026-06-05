@@ -1,0 +1,22 @@
+<!-- @dsCard group="Components" --><!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_tokens.css"><style>
+.wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.toggle{display:inline-flex;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:3px;gap:2px;}
+.tb{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--muted);padding:6px 16px;border-radius:999px;cursor:pointer;}
+.tb.on{background:var(--accent);color:var(--on-accent);}
+.pill{font-family:var(--font-sans);font-size:12.5px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:5px 12px;background:var(--panel);}
+.badge{font-family:var(--font-sans);font-size:10.5px;font-weight:700;color:var(--accent);border:1px solid var(--border);border-radius:999px;padding:2px 9px;}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);margin-right:6px;}
+</style></head><body><div class="card">
+<div class="lbl" style="margin-bottom:12px;">Toggles, pills &amp; badges</div>
+<div class="wrap" style="margin-bottom:14px;">
+  <div class="toggle"><span class="tb on">Agent</span><span class="tb">Chat</span></div>
+  <span class="badge">self-evolving</span>
+  <span class="pill"><span class="dot"></span>online</span>
+</div>
+<div class="wrap">
+  <span class="pill">Self-hosted</span>
+  <span class="pill">Bring your own models</span>
+  <span class="pill">Local-first</span>
+  <span class="pill">MCP-ready</span>
+  <span class="pill">No telemetry</span>
+</div></div></body></html>

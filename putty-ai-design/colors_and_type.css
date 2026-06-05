@@ -1,0 +1,149 @@
+/* ============================================================================
+   putty-ai Design System — Colors & Type
+   A monochrome identity: ink → grey → white neutrals, with a single warm pop
+   (the coral putty mascot) reserved for the brand mark only.
+   Lineage: distilled & re-skinned from a self-hosted AI workspace UI.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   FONTS — self-hosted, no Google/CDN dependency
+   --------------------------------------------------------------------------- */
+@font-face { font-family: 'Inter'; font-weight: 400; font-style: normal; font-display: swap; src: url('fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 500; font-style: normal; font-display: swap; src: url('fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-weight: 600; font-style: normal; font-display: swap; src: url('fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Fira Code'; font-weight: 300; font-style: normal; font-display: swap; src: url('fonts/FiraCode-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Fira Code'; font-weight: 400; font-style: normal; font-display: swap; src: url('fonts/FiraCode-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Fira Code'; font-weight: 600; font-style: normal; font-display: swap; src: url('fonts/FiraCode-SemiBold.woff2') format('woff2'); }
+
+:root {
+  /* ==========================================================================
+     COLOR — monochrome ramp (the whole identity lives on this ladder)
+     ========================================================================== */
+
+  /* Surfaces — ink canvas, panels lift slightly lighter */
+  --bg:        #0e0e10;   /* ink — app canvas */
+  --bg2:       #1c1d21;   /* inset / code / input field */
+  --panel:     #161719;   /* cards, sidebar, raised panels */
+  --panel2:    #222327;   /* hover fill */
+  --surface-3: #26282d;   /* chrome bars, subtle raised */
+
+  /* Text — white → grey */
+  --fg:        #e9eaec;   /* primary text */
+  --heading:   #ffffff;   /* headings, emphasis */
+  --muted:     #8a8e96;   /* secondary / supporting text */
+  --faint:     #3a3c42;   /* disabled, dots, hairlines */
+
+  /* Interactive accent — near-white (this is the "color" of the UI) */
+  --accent:    #e9eaec;   /* primary action, links, active state */
+  --accent2:   #ffffff;   /* brighter — gradient end, hovers */
+  --on-accent: #0e0e10;   /* ink text/icon on light buttons */
+  --red:       #e9eaec;   /* legacy alias → neutral interactive */
+
+  /* Borders — grey */
+  --border:    #2e3036;   /* default 1px border */
+  --border-2:  #3a3c42;   /* stronger / input border */
+
+  /* The single brand pop — the coral putty mascot. UI stays monochrome; this
+     is for the logo / mark only. */
+  --brand-putty:  #e06c75;
+  --brand-putty2: #f7adb2;
+
+  /* Status / semantic — kept functional, lightly desaturated */
+  --green:     #5bbf8f;   /* success, "online" dot */
+  --gold:      #d6a35c;   /* warning, stars */
+  --warn:      #d6a35c;
+  --error:     #e0686e;   /* errors */
+
+  /* ==========================================================================
+     COLOR — semantic component tokens
+     ========================================================================== */
+  --brand-color:    var(--brand-putty);
+  --link:           var(--accent);
+  --user-bubble-bg: #222327;                 /* user message bubble */
+  --ai-bubble-bg:   transparent;
+  --bubble-border:  var(--border);
+  --sidebar-bg:     var(--panel);
+  --input-bg:       var(--bg2);
+  --input-border:   var(--border-2);
+  --send-btn-bg:    var(--accent);
+  --send-btn-hover: var(--accent2);
+  --code-bg:        var(--bg2);
+  --code-fg:        var(--fg);
+  --selection-bg:   rgba(255,255,255,0.16);
+
+  /* Glow tints used in radial backgrounds & dot grids (neutral now) */
+  --glow-soft:      rgba(255,255,255,0.06);
+  --dot-grid:       rgba(255,255,255,0.05);
+
+  /* ==========================================================================
+     TYPE — families
+     ========================================================================== */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-family: var(--font-sans);
+
+  /* ==========================================================================
+     TYPE — scale (px)
+     ========================================================================== */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 14px;
+  --text-md:   16px;
+  --text-lg:   19px;
+  --text-xl:   24px;
+  --text-2xl:  32px;
+  --text-3xl:  44px;
+  --text-4xl:  52px;
+
+  --leading-tight: 1.12;
+  --leading-snug:  1.35;
+  --leading-body:  1.6;
+  --leading-loose: 1.7;
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+
+  --tracking-tight:  -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.12em;
+
+  /* ==========================================================================
+     SHAPE — radius, borders, shadow, spacing, motion
+     ========================================================================== */
+  --radius-sm:   4px;
+  --radius:      8px;
+  --radius-lg:   10px;
+  --radius-xl:   18px;
+  --radius-pill: 999px;
+
+  --border-1: 1px solid var(--border);
+
+  --shadow-sm:   0 6px 22px rgba(0,0,0,0.45);
+  --shadow-md:   0 24px 60px rgba(0,0,0,0.55);
+  --shadow-glow: 0 5px 16px rgba(224,108,117,0.40); /* coral mascot glow */
+
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 22px; --space-6: 32px; --space-8: 60px;
+
+  --ease-brand: cubic-bezier(.2,.7,.2,1);
+  --dur-fast:  .12s;
+  --dur-base:  .25s;
+  --dur-slow:  .5s;
+}
+
+/* ============================================================================
+   SEMANTIC ELEMENT STYLES
+   ============================================================================ */
+.od-h1 { font-family: var(--font-sans); font-weight: var(--weight-bold); font-size: var(--text-4xl); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); color: var(--heading); }
+.od-h2 { font-family: var(--font-sans); font-weight: var(--weight-bold); font-size: var(--text-xl); line-height: var(--leading-snug); letter-spacing: var(--tracking-tight); color: var(--heading); }
+.od-h3 { font-family: var(--font-sans); font-weight: var(--weight-semibold); font-size: var(--text-md); line-height: var(--leading-snug); color: var(--heading); }
+.od-body { font-family: var(--font-sans); font-weight: var(--weight-regular); font-size: var(--text-base); line-height: var(--leading-body); color: var(--fg); }
+.od-muted { color: var(--muted); }
+.od-eyebrow { font-family: var(--font-sans); font-weight: var(--weight-bold); font-size: var(--text-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--heading); }
+.od-mono { font-family: var(--font-mono); font-size: var(--text-sm); line-height: var(--leading-loose); color: var(--fg); }
+.od-slogan { font-family: var(--font-mono); font-style: italic; font-size: var(--text-xs); letter-spacing: 0.3px; color: var(--muted); }
+.od-code { font-family: var(--font-mono); font-size: 13.5px; background: var(--code-bg); color: var(--code-fg); border: var(--border-1); border-radius: var(--radius-sm); padding: 1px 6px; }
+.od-link { color: var(--link); text-decoration: none; }
+.od-link:hover { color: var(--accent2); }

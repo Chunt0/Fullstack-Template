@@ -22,7 +22,7 @@ function applyClass(resolved: Resolved): void {
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(
-    () => (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? 'system',
+    () => (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? 'dark',
   )
   const [resolvedTheme, setResolved] = useState<Resolved>(() =>
     theme === 'system' ? systemPref() : theme,

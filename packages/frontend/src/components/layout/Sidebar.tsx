@@ -1,12 +1,16 @@
 import { NavLink } from 'react-router'
+import { PuttyMascot } from '@/components/brand/PuttyMascot'
 import { APP_NAME } from '@/lib/config'
 import { routes } from '@/routes.manifest'
 import { cn } from '@/lib/utils'
 
 export function Sidebar() {
   return (
-    <aside className="hidden w-56 shrink-0 border-r border-border bg-card md:block">
-      <div className="flex h-14 items-center px-5 text-base font-semibold">{APP_NAME}</div>
+    <aside className="hidden w-56 shrink-0 flex-col border-r border-border bg-card md:flex">
+      <div className="flex h-14 items-center gap-2.5 px-5">
+        <PuttyMascot size={24} glow />
+        <span className="text-base font-bold tracking-tight lowercase">{APP_NAME}</span>
+      </div>
       <nav className="space-y-1 px-3 py-2">
         {routes.map((r) => (
           <NavLink
@@ -15,15 +19,24 @@ export function Sidebar() {
             end={r.path === '/'}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                'group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground',
+                  ? 'bg-accent text-foreground'
+                  : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground',
               )
             }
           >
-            <r.icon className="size-4" />
-            {r.label}
+            {({ isActive }) => (
+              <>
+                <r.icon
+                  className={cn(
+                    'size-4 transition-opacity',
+                    isActive ? 'opacity-100' : 'opacity-50 group-hover:opacity-100',
+                  )}
+                />
+                {r.label}
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

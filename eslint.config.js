@@ -11,6 +11,7 @@ export default tseslint.config(
       '**/coverage/**',
       '**/*.config.*',
       '**/migrations/**',
+      'putty-ai-design/**',
     ],
   },
   js.configs.recommended,

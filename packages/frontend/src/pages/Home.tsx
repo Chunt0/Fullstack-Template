@@ -1,10 +1,18 @@
-import { PageHeader } from '@/components/layout/PageHeader'
+import { PuttyMascot } from '@/components/brand/PuttyMascot'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { APP_NAME, APP_SLOGAN } from '@/lib/config'
 
 export default function Home() {
   return (
     <div>
-      <PageHeader title="Home" description="Your new app's starting point." />
+      <section className="mb-8 flex flex-col items-center gap-3 py-10 text-center">
+        <PuttyMascot size={64} glow />
+        <h1 className="text-3xl font-bold tracking-tight lowercase">{APP_NAME}</h1>
+        <p className="od-slogan">{APP_SLOGAN}</p>
+        <p className="max-w-md text-sm text-muted-foreground">
+          A self-hosted workspace — private, local-first, no telemetry. Your data, your hardware.
+        </p>
+      </section>
       <div className="grid gap-4 sm:grid-cols-2">
         <Card>
           <CardHeader>
@@ -19,7 +27,7 @@ export default function Home() {
         <Card>
           <CardHeader>
             <CardTitle>Design system</CardTitle>
-            <CardDescription>Radix + CVA primitives</CardDescription>
+            <CardDescription>monochrome — Inter + Fira Code</CardDescription>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground">
             Compose pages from <code>components/ui</code>, <code>feedback</code>, and{' '}

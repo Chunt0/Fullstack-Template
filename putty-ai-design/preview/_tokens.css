@@ -1,0 +1,28 @@
+/* Shared tokens for preview cards (font paths relative to /preview). Mirrors colors_and_type.css — monochrome. */
+@font-face { font-family:'Inter'; font-weight:400; font-display:swap; src:url('../fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family:'Inter'; font-weight:500; font-display:swap; src:url('../fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family:'Inter'; font-weight:600; font-display:swap; src:url('../fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family:'Fira Code'; font-weight:300; font-display:swap; src:url('../fonts/FiraCode-Light.woff2') format('woff2'); }
+@font-face { font-family:'Fira Code'; font-weight:400; font-display:swap; src:url('../fonts/FiraCode-Regular.woff2') format('woff2'); }
+@font-face { font-family:'Fira Code'; font-weight:600; font-display:swap; src:url('../fonts/FiraCode-SemiBold.woff2') format('woff2'); }
+:root{
+  --bg:#0e0e10; --bg2:#1c1d21; --panel:#161719; --panel2:#222327; --surface-3:#26282d;
+  --fg:#e9eaec; --heading:#ffffff; --muted:#8a8e96; --faint:#3a3c42;
+  --accent:#e9eaec; --accent2:#ffffff; --on-accent:#0e0e10; --red:#e9eaec;
+  --border:#2e3036; --border-2:#3a3c42;
+  --brand-putty:#e06c75; --brand-putty2:#f7adb2;
+  --green:#5bbf8f; --gold:#d6a35c; --error:#e0686e;
+  --font-sans:'Inter',system-ui,sans-serif; --font-mono:'Fira Code',ui-monospace,Menlo,monospace;
+  --ease-brand:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;}
+body{
+  font-family:var(--font-sans); color:var(--fg);
+  background:#0e0e10;
+  background-image:radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1.4px);
+  background-size:22px 22px;
+  -webkit-font-smoothing:antialiased;
+}
+.card{padding:20px 22px;}
+.lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;}
