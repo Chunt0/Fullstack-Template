@@ -6,14 +6,19 @@
 @font-face { font-family:'Fira Code'; font-weight:400; font-display:swap; src:url('../fonts/FiraCode-Regular.woff2') format('woff2'); }
 @font-face { font-family:'Fira Code'; font-weight:600; font-display:swap; src:url('../fonts/FiraCode-SemiBold.woff2') format('woff2'); }
 :root{
-  --bg:#0e0e10; --bg2:#1c1d21; --panel:#161719; --panel2:#222327; --surface-3:#26282d;
-  --fg:#e9eaec; --heading:#ffffff; --muted:#8a8e96; --faint:#3a3c42;
-  --accent:#e9eaec; --accent2:#ffffff; --on-accent:#0e0e10; --red:#e9eaec;
-  --border:#2e3036; --border-2:#3a3c42;
+  --bg:#0e0e10; --bg2:#191a1d; --panel:#1b1c1f; --panel2:#252629; --surface-3:#2c2d31;
+  --fg:#eaeaec; --heading:#ffffff; --muted:#93969c; --faint:#3d3e44;
+  --accent:#e06c75; --accent2:#ef8088; --on-accent:#ffffff; --focus:rgba(224,108,117,0.55); --red:#e06c75;
+  --accent-solid:#c2454f; --accent-solid-hover:#cf5560; --accent-solid-press:#a83843;
+  --border:#313338; --border-2:#42444a;
   --brand-putty:#e06c75; --brand-putty2:#f7adb2;
-  --green:#5bbf8f; --gold:#d6a35c; --error:#e0686e;
+  --green:#5cc28d; --gold:#e0a95e; --error:#e0686e;
+  --success-bg:rgba(92,194,141,0.13); --warn-bg:rgba(224,169,94,0.14); --error-bg:rgba(224,104,110,0.14); --accent-bg:rgba(224,108,117,0.13);
+  --chart-1:#e06c75; --chart-2:#5cc28d; --chart-3:#6aa6e0; --chart-4:#e0a95e; --chart-5:#b58be0; --chart-6:#54ccce; --chart-grid:rgba(255,255,255,0.07); --chart-axis:#93969c;
+  --radius-sm:4px; --radius:8px; --radius-lg:10px; --radius-xl:18px; --radius-pill:999px;
+  --shadow-sm:0 6px 22px rgba(0,0,0,0.45); --shadow-md:0 24px 60px rgba(0,0,0,0.55);
   --font-sans:'Inter',system-ui,sans-serif; --font-mono:'Fira Code',ui-monospace,Menlo,monospace;
-  --ease-brand:cubic-bezier(.2,.7,.2,1);
+  --ease-brand:cubic-bezier(.2,.7,.2,1); /* @kind other */
 }
 *{box-sizing:border-box;}
 html,body{margin:0;}

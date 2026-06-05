@@ -1,7 +1,7 @@
 /* ============================================================================
    putty-ai Design System — Colors & Type
-   A monochrome identity: ink → grey → white neutrals, with a single warm pop
-   (the coral putty mascot) reserved for the brand mark only.
+   A near-monochrome identity: pure ink → grey → white neutrals, with the coral
+   putty as the single interactive accent (buttons, links, focus, active state).
    Lineage: distilled & re-skinned from a self-hosted AI workspace UI.
    ============================================================================ */
 
@@ -20,46 +20,70 @@
      COLOR — monochrome ramp (the whole identity lives on this ladder)
      ========================================================================== */
 
-  /* Surfaces — ink canvas, panels lift slightly lighter */
+  /* Surfaces — ink canvas, panels lift lighter (widened so cards separate cleanly) */
   --bg:        #0e0e10;   /* ink — app canvas */
-  --bg2:       #1c1d21;   /* inset / code / input field */
-  --panel:     #161719;   /* cards, sidebar, raised panels */
-  --panel2:    #222327;   /* hover fill */
-  --surface-3: #26282d;   /* chrome bars, subtle raised */
+  --bg2:       #191a1d;   /* inset / code / input field */
+  --panel:     #1b1c1f;   /* cards, sidebar, raised panels */
+  --panel2:    #252629;   /* hover fill */
+  --surface-3: #2c2d31;   /* chrome bars, subtle raised */
 
-  /* Text — white → grey */
-  --fg:        #e9eaec;   /* primary text */
+  /* Text — white → grey (pure neutral) */
+  --fg:        #eaeaec;   /* primary text */
   --heading:   #ffffff;   /* headings, emphasis */
-  --muted:     #8a8e96;   /* secondary / supporting text */
-  --faint:     #3a3c42;   /* disabled, dots, hairlines */
+  --muted:     #93969c;   /* secondary / supporting text */
+  --faint:     #3d3e44;   /* disabled, dots, hairlines */
 
-  /* Interactive accent — near-white (this is the "color" of the UI) */
-  --accent:    #e9eaec;   /* primary action, links, active state */
-  --accent2:   #ffffff;   /* brighter — gradient end, hovers */
-  --on-accent: #0e0e10;   /* ink text/icon on light buttons */
-  --red:       #e9eaec;   /* legacy alias → neutral interactive */
+  /* Interactive accent — the coral putty. Graduated from mascot-only to the
+     UI's interactive color: primary buttons, links, focus, active state. */
+  --accent:    #e06c75;   /* brand coral — links/icons/borders/active on DARK (coral-on-ink ≈ 5.9:1 ✓) */
+  --accent2:   #ef8088;   /* brighter — coral text hover on dark, mascot highlight */
+  --on-accent: #ffffff;   /* text/icon on coral fills */
+  --focus:     rgba(224,108,117,0.55);  /* focus ring */
+  --red:       #e06c75;   /* legacy alias → interactive coral */
+
+  /* AA-safe coral for TEXT-bearing fills (button labels, active toggle text).
+     White-on-#c2454f ≈ 4.6:1 → passes WCAG AA for normal text. The brighter
+     --accent is reserved for icon-only fills (3:1 graphics bar) + text/marks. */
+  --accent-solid:       #c2454f;
+  --accent-solid-hover: #cf5560;
+  --accent-solid-press: #a83843;
 
   /* Borders — grey */
-  --border:    #2e3036;   /* default 1px border */
-  --border-2:  #3a3c42;   /* stronger / input border */
+  --border:    #313338;   /* default 1px border */
+  --border-2:  #42444a;   /* stronger / input border */
 
-  /* The single brand pop — the coral putty mascot. UI stays monochrome; this
-     is for the logo / mark only. */
+  /* Brand mascot tints (the mark itself; same hue as the accent) */
   --brand-putty:  #e06c75;
   --brand-putty2: #f7adb2;
 
-  /* Status / semantic — kept functional, lightly desaturated */
-  --green:     #5bbf8f;   /* success, "online" dot */
-  --gold:      #d6a35c;   /* warning, stars */
-  --warn:      #d6a35c;
-  --error:     #e0686e;   /* errors */
+  /* Status / semantic — harmonized to sit at the coral's energy */
+  --green:     #5cc28d;   /* success, "online" dot */
+  --gold:      #e0a95e;   /* warning, stars */
+  --warn:      #e0a95e;
+  --error:     #e0686e;   /* errors (rhymes with the coral) */
+
+  /* Tint fills for status surfaces (alerts, badges) on the dark canvas */
+  --success-bg: rgba(92,194,141,0.13);
+  --warn-bg:    rgba(224,169,94,0.14);
+  --error-bg:   rgba(224,104,110,0.14);
+  --accent-bg:  rgba(224,108,117,0.13);
+
+  /* Chart / data-viz — categorical series, distinguishable on ink, coral-led */
+  --chart-1: #e06c75;   /* coral (brand / primary series) */
+  --chart-2: #5cc28d;   /* green */
+  --chart-3: #6aa6e0;   /* blue */
+  --chart-4: #e0a95e;   /* gold */
+  --chart-5: #b58be0;   /* violet */
+  --chart-6: #54ccce;   /* teal */
+  --chart-grid: rgba(255,255,255,0.07);
+  --chart-axis: var(--muted);
 
   /* ==========================================================================
      COLOR — semantic component tokens
      ========================================================================== */
   --brand-color:    var(--brand-putty);
   --link:           var(--accent);
-  --user-bubble-bg: #222327;                 /* user message bubble */
+  --user-bubble-bg: #252629;                 /* user message bubble */
   --ai-bubble-bg:   transparent;
   --bubble-border:  var(--border);
   --sidebar-bg:     var(--panel);
@@ -69,7 +93,7 @@
   --send-btn-hover: var(--accent2);
   --code-bg:        var(--bg2);
   --code-fg:        var(--fg);
-  --selection-bg:   rgba(255,255,255,0.16);
+  --selection-bg:   rgba(224,108,117,0.22);
 
   /* Glow tints used in radial backgrounds & dot grids (neutral now) */
   --glow-soft:      rgba(255,255,255,0.06);
@@ -83,7 +107,8 @@
   --font-family: var(--font-sans);
 
   /* ==========================================================================
-     TYPE — scale (px)
+     TYPE — scale (px). Full ramp, no gaps; pair with the leading/tracking below
+     or use the bundled .od-type-* role classes.
      ========================================================================== */
   --text-xs:   11px;
   --text-sm:   13px;
@@ -91,9 +116,10 @@
   --text-md:   16px;
   --text-lg:   19px;
   --text-xl:   24px;
-  --text-2xl:  32px;
-  --text-3xl:  44px;
-  --text-4xl:  52px;
+  --text-2xl:  28px;   /* fills the old 24→32 gap */
+  --text-3xl:  32px;
+  --text-4xl:  40px;
+  --text-5xl:  52px;
 
   --leading-tight: 1.12;
   --leading-snug:  1.35;
@@ -127,16 +153,29 @@
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
   --space-5: 22px; --space-6: 32px; --space-8: 60px;
 
-  --ease-brand: cubic-bezier(.2,.7,.2,1);
-  --dur-fast:  .12s;
-  --dur-base:  .25s;
-  --dur-slow:  .5s;
+  --ease-brand: cubic-bezier(.2,.7,.2,1);  /* @kind other */
+  --dur-fast:  .12s;  /* @kind other */
+  --dur-base:  .25s;  /* @kind other */
+  --dur-slow:  .5s;   /* @kind other */
 }
 
 /* ============================================================================
    SEMANTIC ELEMENT STYLES
    ============================================================================ */
-.od-h1 { font-family: var(--font-sans); font-weight: var(--weight-bold); font-size: var(--text-4xl); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); color: var(--heading); }
+/* Type roles — size + leading + tracking + weight bundled per step.
+   Prefer these over raw --text-* so spacing stays consistent. */
+.od-type-display { font-family: var(--font-sans); font-weight: 700; font-size: var(--text-5xl); line-height: 1.05; letter-spacing: -0.02em; color: var(--heading); }
+.od-type-title   { font-family: var(--font-sans); font-weight: 700; font-size: var(--text-4xl); line-height: 1.12; letter-spacing: -0.015em; color: var(--heading); }
+.od-type-h1      { font-family: var(--font-sans); font-weight: 700; font-size: var(--text-3xl); line-height: 1.18; letter-spacing: -0.01em; color: var(--heading); }
+.od-type-h2      { font-family: var(--font-sans); font-weight: 600; font-size: var(--text-2xl); line-height: 1.25; letter-spacing: -0.01em; color: var(--heading); }
+.od-type-h3      { font-family: var(--font-sans); font-weight: 600; font-size: var(--text-xl); line-height: 1.3;  letter-spacing: -0.005em; color: var(--heading); }
+.od-type-subhead { font-family: var(--font-sans); font-weight: 600; font-size: var(--text-lg); line-height: 1.4;  color: var(--heading); }
+.od-type-lead    { font-family: var(--font-sans); font-weight: 400; font-size: var(--text-md); line-height: 1.6;  color: var(--fg); }
+.od-type-body    { font-family: var(--font-sans); font-weight: 400; font-size: var(--text-base); line-height: 1.6; color: var(--fg); }
+.od-type-small   { font-family: var(--font-sans); font-weight: 400; font-size: var(--text-sm); line-height: 1.5; color: var(--muted); }
+.od-type-caption { font-family: var(--font-sans); font-weight: 500; font-size: var(--text-xs); line-height: 1.45; color: var(--muted); }
+
+.od-h1 { font-family: var(--font-sans); font-weight: var(--weight-bold); font-size: var(--text-5xl); line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); color: var(--heading); }
 .od-h2 { font-family: var(--font-sans); font-weight: var(--weight-bold); font-size: var(--text-xl); line-height: var(--leading-snug); letter-spacing: var(--tracking-tight); color: var(--heading); }
 .od-h3 { font-family: var(--font-sans); font-weight: var(--weight-semibold); font-size: var(--text-md); line-height: var(--leading-snug); color: var(--heading); }
 .od-body { font-family: var(--font-sans); font-weight: var(--weight-regular); font-size: var(--text-base); line-height: var(--leading-body); color: var(--fg); }

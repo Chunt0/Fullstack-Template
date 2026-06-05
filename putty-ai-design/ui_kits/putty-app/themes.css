@@ -1,0 +1,430 @@
+/* ============================================================================
+   themes.css — the full built-in theme set from the source app, expanded into
+   ready-to-use token blocks. Source: pewdiepie-archdaemon/odysseus (theme.js).
+
+   Usage: load this file, then set data-theme="<key>" on any container
+   (or <html>). Every design-system / UI-kit token is re-mapped per theme, so
+   the whole UI re-skins with one attribute. Base 5 colors are verbatim from the
+   source; secondary tokens (bg2, muted, on-accent, hovers…) are derived to match.
+
+   Keys: dark, light, midnight, paper, cyberpunk, retrowave, forest, ocean, ume, copper, terminal, organs, lavender, gpt, claude, cute, putty (monochrome house brand).
+   ============================================================================ */
+
+[data-theme="putty"]{ /* monochrome house brand — coral interactive accent */
+  --bg: #0e0e10;
+  --bg2: #191a1d;
+  --panel: #1b1c1f;
+  --panel2: #252629;
+  --surface-3: #2c2d31;
+  --fg: #eaeaec;
+  --heading: #ffffff;
+  --muted: #93969c;
+  --faint: #3d3e44;
+  --accent: #e06c75;
+  --accent2: #ef8088;
+  --on-accent: #ffffff;
+  --accent-solid: #c2454f;
+  --accent-solid-hover: #cf5560;
+  --accent-solid-press: #a83843;
+  --chart-axis: var(--muted);
+  --ease-brand: cubic-bezier(.2,.7,.2,1); /* @kind other */
+  --red: #e06c75;
+  --border: #313338;
+  --border-2: #42444a;
+  --brand-putty: #e06c75;
+  --user-bubble: #252629;
+  --green: #5cc28d;
+  --gold: #e0a95e;
+  --error: #e0686e;
+}
+[data-theme="putty-light"]{ /* house brand — light mode (pure-grey paper, coral accent) */
+  --bg: #f5f5f6;
+  --bg2: #ffffff;
+  --panel: #ffffff;
+  --panel2: #eeeef0;
+  --surface-3: #e8e8eb;
+  --fg: #1b1c1f;
+  --heading: #0e0e10;
+  --muted: #6b6e74;
+  --faint: #d8d9dc;
+  --accent: #c2454f;
+  --accent2: #d15863;
+  --on-accent: #ffffff;
+  --accent-solid: #c2454f;
+  --accent-solid-hover: #ad3a43;
+  --accent-solid-press: #97303a;
+  --focus: rgba(194,69,79,0.32);
+  --chart-axis: #6b6e74;
+  --ease-brand: cubic-bezier(.2,.7,.2,1); /* @kind other */
+  --red: #c2454f;
+  --border: #e3e3e6;
+  --border-2: #cdced2;
+  --brand-putty: #e06c75;
+  --user-bubble: #eeeef0;
+  --green: #2e9d6b;
+  --gold: #a9792a;
+  --error: #cf4a52;
+  --success-bg: rgba(46,157,107,0.12);
+  --warn-bg: rgba(169,121,42,0.13);
+  --error-bg: rgba(207,74,82,0.12);
+  --accent-bg: rgba(194,69,79,0.10);
+  --chart-1: #d15863;
+  --chart-2: #2e9d6b;
+  --chart-3: #3f7fc4;
+  --chart-4: #bb842f;
+  --chart-5: #8b5fc0;
+  --chart-6: #2f9fa1;
+  --chart-grid: rgba(0,0,0,0.08);
+}
+[data-theme="dark"]{ /* Original · bg: none */
+  --bg: #282c34;
+  --bg2: #21252b;
+  --panel: #111111;
+  --panel2: #1f2628;
+  --surface-3: #273235;
+  --fg: #9cdef2;
+  --heading: #c0eaf7;
+  --muted: #688e9d;
+  --faint: #304852;
+  --accent: #e06c75;
+  --accent2: #e9969d;
+  --on-accent: #ffffff;
+  --red: #e06c75;
+  --border: #355a66;
+  --border-2: #4a7482;
+  --brand-putty: #e06c75;
+  --user-bubble: #21252b;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #e06c75;
+}
+[data-theme="light"]{ /* Light · bg: dots */
+  --bg: #f0ebe3;
+  --bg2: #f5f2ed;
+  --panel: #faf6f0;
+  --panel2: #eae6df;
+  --surface-3: #e0dcd5;
+  --fg: #5a5248;
+  --heading: #3e3831;
+  --muted: #9e978e;
+  --faint: #dfd9cf;
+  --accent: #c47d5a;
+  --accent2: #b56741;
+  --on-accent: #ffffff;
+  --red: #c47d5a;
+  --border: #d4cdc2;
+  --border-2: #bcb4aa;
+  --brand-putty: #c47d5a;
+  --user-bubble: #f5f2ed;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #c47d5a;
+}
+[data-theme="midnight"]{ /* Midnight · bg: rain */
+  --bg: #0d1117;
+  --bg2: #070a0d;
+  --panel: #161b22;
+  --panel2: #282d34;
+  --surface-3: #33383f;
+  --fg: #c9d1d9;
+  --heading: #e1e5ea;
+  --muted: #747b82;
+  --faint: #22272e;
+  --accent: #f85149;
+  --accent2: #fa807a;
+  --on-accent: #ffffff;
+  --red: #f85149;
+  --border: #30363d;
+  --border-2: #4f555c;
+  --brand-putty: #f85149;
+  --user-bubble: #070a0d;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #f85149;
+}
+[data-theme="paper"]{ /* Paper · bg: dots */
+  --bg: #faf8f5;
+  --bg2: #ffffff;
+  --panel: #ffffff;
+  --panel2: #ebebeb;
+  --surface-3: #e0dfdf;
+  --fg: #3b3836;
+  --heading: #201f1e;
+  --muted: #918e8c;
+  --faint: #e4e0da;
+  --accent: #c5ac4a;
+  --accent2: #ae9638;
+  --on-accent: #ffffff;
+  --red: #c5ac4a;
+  --border: #d5d0c8;
+  --border-2: #b6b2ab;
+  --brand-putty: #c5ac4a;
+  --user-bubble: #ffffff;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #c5ac4a;
+}
+[data-theme="cyberpunk"]{ /* Cyberpunk · bg: synapse */
+  --bg: #0a0a0f;
+  --bg2: #040406;
+  --panel: #12101a;
+  --panel2: #122631;
+  --surface-3: #12343e;
+  --fg: #0ff0fc;
+  --heading: #37f3fd;
+  --muted: #0d8991;
+  --faint: #61219f;
+  --accent: #e040fb;
+  --accent2: #e872fc;
+  --on-accent: #ffffff;
+  --red: #e040fb;
+  --border: #9b30ff;
+  --border-2: #7f56fe;
+  --brand-putty: #e040fb;
+  --user-bubble: #040406;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #e040fb;
+}
+[data-theme="retrowave"]{ /* Retrowave · bg: embers */
+  --bg: #1a1a2e;
+  --bg2: #141424;
+  --panel: #16213e;
+  --panel2: #2b2541;
+  --surface-3: #382743;
+  --fg: #e94560;
+  --heading: #ed697f;
+  --muted: #8c324a;
+  --faint: #3c2a61;
+  --accent: #e94560;
+  --accent2: #ee7387;
+  --on-accent: #ffffff;
+  --red: #e94560;
+  --border: #533483;
+  --border-2: #71377c;
+  --brand-putty: #e94560;
+  --user-bubble: #141424;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #e94560;
+}
+[data-theme="forest"]{ /* Forest · bg: petals */
+  --bg: #1b2a1b;
+  --bg2: #152115;
+  --panel: #142414;
+  --panel2: #233622;
+  --surface-3: #2c402b;
+  --fg: #a8d5a2;
+  --heading: #c2e2be;
+  --muted: #698865;
+  --faint: #2f512f;
+  --accent: #7cb871;
+  --accent2: #9bc993;
+  --on-accent: #ffffff;
+  --red: #7cb871;
+  --border: #3d6b3d;
+  --border-2: #528051;
+  --brand-putty: #7cb871;
+  --user-bubble: #152115;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #7cb871;
+}
+[data-theme="ocean"]{ /* Ocean · bg: constellations */
+  --bg: #0b1a2c;
+  --bg2: #081320;
+  --panel: #091422;
+  --panel2: #122738;
+  --surface-3: #183245;
+  --fg: #64d2ff;
+  --heading: #8ddeff;
+  --muted: #3c7fa0;
+  --faint: #163a57;
+  --accent: #4facfe;
+  --accent2: #82c4fe;
+  --on-accent: #ffffff;
+  --red: #4facfe;
+  --border: #1e5074;
+  --border-2: #2c6a90;
+  --brand-putty: #4facfe;
+  --user-bubble: #081320;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #4facfe;
+}
+[data-theme="ume"]{ /* Ume · bg: petals */
+  --bg: #2b1b2e;
+  --bg2: #221524;
+  --panel: #1e1420;
+  --panel2: #342534;
+  --surface-3: #403040;
+  --fg: #f5c2e7;
+  --heading: #fbe5f5;
+  --muted: #9a7794;
+  --faint: #523559;
+  --accent: #f5a0c0;
+  --accent2: #facedf;
+  --on-accent: #ffffff;
+  --red: #f5a0c0;
+  --border: #6c4675;
+  --border-2: #875f8c;
+  --brand-putty: #f5a0c0;
+  --user-bubble: #221524;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #f5a0c0;
+}
+[data-theme="copper"]{ /* Copper */
+  --bg: #1c1410;
+  --bg2: #120d0a;
+  --panel: #140f0a;
+  --panel2: #292119;
+  --surface-3: #362c22;
+  --fg: #e8c39e;
+  --heading: #f0d7bf;
+  --muted: #8c745e;
+  --faint: #543b25;
+  --accent: #d4764e;
+  --accent2: #de9677;
+  --on-accent: #ffffff;
+  --red: #d4764e;
+  --border: #7a5533;
+  --border-2: #906b48;
+  --brand-putty: #d4764e;
+  --user-bubble: #120d0a;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #d4764e;
+}
+[data-theme="terminal"]{ /* Terminal · bg: perlin-flow */
+  --bg: #000000;
+  --bg2: #000000;
+  --panel: #0a0a0a;
+  --panel2: #092310;
+  --surface-3: #083113;
+  --fg: #00ff41;
+  --heading: #29ff5f;
+  --muted: #008c24;
+  --faint: #002300;
+  --accent: #00ff41;
+  --accent2: #33ff67;
+  --on-accent: #111111;
+  --red: #00ff41;
+  --border: #003b00;
+  --border-2: #00620d;
+  --brand-putty: #00ff41;
+  --user-bubble: #000000;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #00ff41;
+}
+[data-theme="organs"]{ /* Organs · bg: rain */
+  --bg: #0a0406;
+  --bg2: #000000;
+  --panel: #15080a;
+  --panel2: #2b1e1d;
+  --surface-3: #382b28;
+  --fg: #efe1c8;
+  --heading: #f8f2e8;
+  --muted: #887e71;
+  --faint: #270e11;
+  --accent: #c83240;
+  --accent2: #d55864;
+  --on-accent: #ffffff;
+  --red: #c83240;
+  --border: #3a1519;
+  --border-2: #5e3e3c;
+  --brand-putty: #c83240;
+  --user-bubble: #000000;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #c83240;
+}
+[data-theme="lavender"]{ /* Lavender */
+  --bg: #f3eef8;
+  --bg2: #fbf9fc;
+  --panel: #faf7ff;
+  --panel2: #e7e4ee;
+  --surface-3: #dcd8e3;
+  --fg: #3d3551;
+  --heading: #262132;
+  --muted: #8f889c;
+  --faint: #ddd4e8;
+  --accent: #9b6dcc;
+  --accent2: #864fc1;
+  --on-accent: #ffffff;
+  --red: #9b6dcc;
+  --border: #cec3de;
+  --border-2: #b1a7c2;
+  --brand-putty: #9b6dcc;
+  --user-bubble: #fbf9fc;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #9b6dcc;
+}
+[data-theme="gpt"]{ /* GPT */
+  --bg: #212121;
+  --bg2: #2f2f2f;
+  --panel: #171717;
+  --panel2: #2c2c2c;
+  --surface-3: #393939;
+  --fg: #ececec;
+  --heading: #ffffff;
+  --muted: #919191;
+  --faint: #353535;
+  --accent: #949494;
+  --accent2: #7f7f7f;
+  --on-accent: #ffffff;
+  --red: #949494;
+  --border: #424242;
+  --border-2: #646464;
+  --brand-putty: #949494;
+  --user-bubble: #2f2f2f;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #949494;
+}
+[data-theme="claude"]{ /* Claude */
+  --bg: #262624;
+  --bg2: #1e1e1d;
+  --panel: #30302e;
+  --panel2: #444441;
+  --surface-3: #504f4d;
+  --fg: #f5f4f0;
+  --heading: #ffffff;
+  --muted: #989794;
+  --faint: #3c3c39;
+  --accent: #c6613f;
+  --accent2: #d28166;
+  --on-accent: #ffffff;
+  --red: #c6613f;
+  --border: #4a4a47;
+  --border-2: #6c6c69;
+  --brand-putty: #c6613f;
+  --user-bubble: #1e1e1d;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #c6613f;
+}
+[data-theme="cute"]{ /* Cute · bg: sparkles */
+  --bg: #fff0f5;
+  --bg2: #ffffff;
+  --panel: #fff8fa;
+  --panel2: #fbe9ef;
+  --surface-3: #f8e0e8;
+  --fg: #d4608a;
+  --heading: #c9386c;
+  --muted: #e7a1ba;
+  --faint: #f6d3df;
+  --accent: #ff6b9d;
+  --accent2: #ff4282;
+  --on-accent: #ffffff;
+  --red: #ff6b9d;
+  --border: #f0c0d0;
+  --border-2: #eaadc2;
+  --brand-putty: #ff6b9d;
+  --user-bubble: #ffffff;
+  --green: #5bbf8f;
+  --gold: #d6a35c;
+  --error: #ff6b9d;
+}

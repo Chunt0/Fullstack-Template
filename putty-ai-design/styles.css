@@ -1,0 +1,12 @@
+/* ============================================================================
+   styles.css — root entry point for the putty-ai design system.
+   Consumers link this ONE file to get every foundation:
+   tokens + type, then the full built-in theme set.
+   ============================================================================ */
+
+/* Design tokens: monochrome color ramp, type scale, fonts, shape, motion */
+@import "colors_and_type.css";
+
+/* All 16 built-in source-app themes + putty (mono) as [data-theme="…"] blocks.
+   Set data-theme on any container to re-skin the whole UI. */
+@import "themes.css";

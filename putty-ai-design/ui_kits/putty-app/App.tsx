@@ -21,6 +21,42 @@ const REPLIES = [
 let uid = 0;
 const nextId = () => 'm' + (++uid);
 
+// All built-in themes from the source app (see /themes.ts and /themes.css).
+// `putty` is the monochrome house brand and the default.
+const THEME_LIST: { key: string; label: string }[] = [
+  { key: 'putty', label: 'putty (mono)' },
+  { key: 'putty-light', label: 'putty (light)' },
+  { key: 'dark', label: 'Original' },
+  { key: 'light', label: 'Light' },
+  { key: 'midnight', label: 'Midnight' },
+  { key: 'paper', label: 'Paper' },
+  { key: 'cyberpunk', label: 'Cyberpunk' },
+  { key: 'retrowave', label: 'Retrowave' },
+  { key: 'forest', label: 'Forest' },
+  { key: 'ocean', label: 'Ocean' },
+  { key: 'ume', label: 'Ume' },
+  { key: 'copper', label: 'Copper' },
+  { key: 'terminal', label: 'Terminal' },
+  { key: 'organs', label: 'Organs' },
+  { key: 'lavender', label: 'Lavender' },
+  { key: 'gpt', label: 'GPT' },
+  { key: 'claude', label: 'Claude' },
+  { key: 'cute', label: 'Cute' },
+];
+
+function ThemeSwitcher({ value, onChange }: { value: string; onChange: (k: string) => void }) {
+  return (
+    <label className="theme-switch" title="Theme">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" /><path d="M12 2a7 7 0 0 0 0 20 4 4 0 0 1 0-8 4 4 0 0 0 0-8" /><circle cx="8" cy="9" r="1.3" fill="currentColor" /><circle cx="15" cy="14" r="1.3" fill="currentColor" />
+      </svg>
+      <select value={value} onChange={(e) => onChange(e.target.value)} aria-label="Select theme">
+        {THEME_LIST.map((t) => <option key={t.key} value={t.key}>{t.label}</option>)}
+      </select>
+    </label>
+  );
+}
+
 function App() {
   const [userName, setUserName] = React.useState<string | null>(null);
   const [sessions, setSessions] = React.useState<Session[]>([]);
@@ -29,8 +65,24 @@ function App() {
   const [mode, setMode] = React.useState<'agent' | 'chat'>('agent');
   const [webOn, setWebOn] = React.useState(false);
   const [shellOn, setShellOn] = React.useState(false);
+  const [navOpen, setNavOpen] = React.useState(false);
   const [model] = React.useState('llama-3.1-8b');
+  const [theme, setTheme] = React.useState<string>(() => {
+    try { return localStorage.getItem('putty-kit-theme') || 'putty'; } catch { return 'putty'; }
+  });
   const replyIdx = React.useRef(0);
+
+  // Apply the theme by toggling data-theme on <html> (themes.css does the rest).
+  // Suppress transitions for one frame so switching themes can't leave a
+  // var()-based background/color stuck mid-fade.
+  React.useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-theme-switching', '');
+    root.dataset.theme = theme;
+    const id = window.requestAnimationFrame(() => window.requestAnimationFrame(() => root.removeAttribute('data-theme-switching')));
+    try { localStorage.setItem('putty-kit-theme', theme); } catch { /* ignore */ }
+    return () => window.cancelAnimationFrame(id);
+  }, [theme]);
 
   const active = sessions.find((s) => s.id === activeId) || null;
   const messages = active ? active.messages : [];
@@ -75,24 +127,33 @@ function App() {
     streamReply(sid);
   };
 
-  const newChat = () => { setActiveId(null); setInput(''); };
+  const newChat = () => { setActiveId(null); setInput(''); setNavOpen(false); };
 
   if (!userName) return <Login onLogin={setUserName} />;
 
   return (
-    <div className="app">
+    <div className={'app' + (navOpen ? ' nav-open' : '')}>
+      <div className="nav-scrim" onClick={() => setNavOpen(false)} />
       <Sidebar
         sessions={sessions}
         activeSession={activeId}
         activeTool={null}
         userName={userName}
         onNewChat={newChat}
-        onSelectSession={setActiveId}
-        onSelectTool={() => {}}
+        onSelectSession={(id) => { setActiveId(id); setNavOpen(false); }}
+        onSelectTool={() => setNavOpen(false)}
         onBrandClick={newChat}
+        onBurger={() => setNavOpen((v) => !v)}
       />
       <main className="chat">
-        <div className="topbar">{active ? active.title : 'putty-ai'}</div>
+        <div className="topbar">
+          <button className="topbar-burger" aria-label="Open menu" onClick={() => setNavOpen(true)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+          </button>
+          <span className="topbar-title">{active ? active.title : 'putty-ai'}</span>
+          <span style={{ flex: 1 }} />
+          <ThemeSwitcher value={theme} onChange={setTheme} />
+        </div>
         {active ? <Transcript messages={messages} /> : <Welcome userName={userName} onSetup={() => {}} />}
         <Composer
           value={input}

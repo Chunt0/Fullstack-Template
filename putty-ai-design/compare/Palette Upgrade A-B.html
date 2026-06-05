@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>putty-ai — Palette Upgrade A/B</title>
+<style>
+  @font-face { font-family:'Inter'; font-weight:400; font-display:swap; src:url('../fonts/Inter-Regular.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:500; font-display:swap; src:url('../fonts/Inter-Medium.woff2') format('woff2'); }
+  @font-face { font-family:'Inter'; font-weight:600; font-display:swap; src:url('../fonts/Inter-SemiBold.woff2') format('woff2'); }
+  @font-face { font-family:'Fira Code'; font-weight:400; font-display:swap; src:url('../fonts/FiraCode-Regular.woff2') format('woff2'); }
+  html,body{margin:0;height:100%;}
+
+  /* ============================================================
+     VARIANT A — current: monochrome, near-white accent
+     ============================================================ */
+  .va{
+    --bg:#0e0e10; --bg2:#1c1d21; --panel:#161719; --panel2:#222327; --surface-3:#26282d;
+    --fg:#e9eaec; --heading:#ffffff; --muted:#8a8e96; --faint:#3a3c42;
+    --accent:#e9eaec; --accent2:#ffffff; --on-accent:#0e0e10;
+    --border:#2e3036; --border-2:#3a3c42;
+    --focus:rgba(255,255,255,0.55);
+    --success:#5bbf8f; --warning:#d6a35c; --danger:#e0686e;
+  }
+  /* ============================================================
+     VARIANT B — proposed: coral interactive accent,
+     widened warm-neutral ramp, harmonized status
+     ============================================================ */
+  .vb{
+    --bg:#0e0e10; --bg2:#191a1d; --panel:#1b1c1f; --panel2:#252629; --surface-3:#2c2d31;
+    --fg:#eaeaec; --heading:#ffffff; --muted:#93969c; --faint:#3d3e44;
+    --accent:#e06c75; --accent2:#ef8088; --on-accent:#ffffff;
+    --border:#313338; --border-2:#42444a;
+    --focus:rgba(224,108,117,0.65);
+    --success:#5cc28d; --warning:#e0a95e; --danger:#e0686e;
+  }
+
+  /* ============================================================
+     Shared component styles (both variants use the vars above)
+     ============================================================ */
+  .panel{
+    width:100%; height:100%; background:var(--bg); color:var(--fg);
+    font-family:'Inter',system-ui,sans-serif; display:flex; flex-direction:column;
+    background-image:radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1.4px);
+    background-size:22px 22px;
+  }
+  .nav{display:flex;align-items:center;gap:18px;padding:13px 18px;border-bottom:1px solid var(--border);}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--heading);font-size:15px;letter-spacing:-.01em;}
+  .blob{width:18px;height:18px;}
+  .nav-items{display:flex;gap:4px;margin-left:6px;}
+  .nav-item{font-size:13px;color:var(--muted);padding:5px 11px;border-radius:7px;cursor:pointer;}
+  .nav-item.active{color:var(--heading);background:var(--panel2);position:relative;}
+  .vb .nav-item.active{color:var(--accent);background:rgba(224,108,117,.10);}
+
+  .body{flex:1;padding:20px 18px;display:flex;flex-direction:column;gap:18px;}
+
+  .lbl{font-family:'Fira Code',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px;}
+
+  .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;}
+  .field input{width:100%;box-sizing:border-box;background:var(--bg2);border:1px solid var(--border-2);border-radius:8px;color:var(--fg);font-family:inherit;font-size:13.5px;padding:9px 11px;outline:none;}
+  .field input.focused{border-color:var(--accent);box-shadow:0 0 0 3px var(--focus);}
+
+  .btn-row{display:flex;align-items:center;gap:10px;margin-top:13px;flex-wrap:wrap;}
+  .btn{font-family:inherit;font-weight:600;font-size:13px;border-radius:9px;padding:9px 15px;border:1px solid transparent;cursor:pointer;white-space:nowrap;}
+  .btn-primary{background:var(--accent);color:var(--on-accent);}
+  .vb .btn-primary{box-shadow:0 4px 14px rgba(224,108,117,.32);}
+  .btn-secondary{background:var(--panel);color:var(--fg);border-color:var(--border-2);}
+  .btn-ghost{background:none;color:var(--muted);border:none;padding:9px 8px;}
+
+  .toggle{display:inline-flex;background:var(--panel);border:1px solid var(--border-2);border-radius:999px;padding:3px;gap:2px;}
+  .toggle button{font-family:inherit;font-size:12px;font-weight:600;color:var(--muted);padding:5px 13px;border:none;background:none;border-radius:999px;cursor:pointer;}
+  .toggle button.on{background:var(--accent);color:var(--on-accent);}
+
+  .toast{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--success);border-radius:9px;padding:11px 13px;}
+  .toast .dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success);flex-shrink:0;}
+  .toast .t{font-size:13px;color:var(--fg);}
+  .toast .t b{color:var(--heading);font-weight:600;}
+
+  /* status chips card */
+  .chips{display:flex;gap:10px;flex-wrap:wrap;}
+  .chip{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--fg);background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:6px 12px;}
+  .chip .d{width:8px;height:8px;border-radius:50%;}
+  .d-s{background:var(--success);} .d-w{background:var(--warning);} .d-e{background:var(--danger);} .d-i{background:var(--accent);}
+
+  /* surface-separation demo */
+  .stack{display:flex;flex-direction:column;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+  .stack > div{padding:11px 13px;font-size:12px;font-family:'Fira Code',monospace;color:var(--muted);display:flex;justify-content:space-between;}
+  .s-bg{background:var(--bg);} .s-panel{background:var(--panel);} .s-surface{background:var(--surface-3);}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#100d0f"/><circle cx="50" cy="44" r="20" fill="#e06c75"/><rect x="30" y="70" width="40" height="9" rx="4.5" fill="#e9eaec"/></svg>
+</template>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel">
+const { DesignCanvas, DCSection, DCArtboard, DCPostIt } = window;
+
+const BLOB = `<svg class="blob" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 5 C61 4 64 -1 73 5 C82 10 78 19 86 24 C95 30 91 40 93 48 C95 57 99 63 92 71 C86 78 77 73 70 81 C63 89 59 96 49 93 C40 90 36 96 28 89 C21 83 26 75 18 70 C9 65 7 56 9 48 C11 40 3 35 10 27 C16 20 25 25 31 17 C37 10 39 6 50 5 Z" fill="#e06c75"/><ellipse cx="39" cy="47" rx="6" ry="7.5" fill="#161719"/><ellipse cx="62" cy="47" rx="6" ry="7.5" fill="#161719"/><path d="M41 63 q4.5 5.5 9 0" fill="none" stroke="#161719" stroke-width="3.2" stroke-linecap="round"/></svg>`;
+
+function Panel({ v }) {
+  const html = `
+    <div class="panel ${v}">
+      <div class="nav">
+        <div class="brand">${BLOB} putty-ai</div>
+        <div class="nav-items">
+          <div class="nav-item active">Chat</div>
+          <div class="nav-item">Compare</div>
+          <div class="nav-item">Cookbook</div>
+        </div>
+      </div>
+      <div class="body">
+        <div>
+          <div class="lbl">Compose · input + actions</div>
+          <div class="card">
+            <div class="field">
+              <label>Endpoint name</label>
+              <input class="focused" value="llama-3.1-8b-local" />
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-primary">Serve model</button>
+              <button class="btn btn-secondary">Cancel</button>
+              <div class="toggle"><button class="on">Agent</button><button>Chat</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="lbl">Toast · success</div>
+          <div class="toast"><span class="dot"></span><span class="t"><b>Model served.</b> Listening on :8080</span></div>
+        </div>
+
+        <div>
+          <div class="lbl">Surface separation (bg → panel → raised)</div>
+          <div class="stack">
+            <div class="s-bg"><span>--bg</span><span>canvas</span></div>
+            <div class="s-panel"><span>--panel</span><span>card</span></div>
+            <div class="s-surface"><span>--surface-3</span><span>raised</span></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  return <div style={{width:'100%',height:'100%'}} dangerouslySetInnerHTML={{__html: html}} />;
+}
+
+function StatusRow({ v }) {
+  const html = `
+    <div class="panel ${v}" style="background-image:none;">
+      <div class="body" style="justify-content:center;">
+        <div>
+          <div class="lbl">Status palette — does it sit at the same energy as the brand?</div>
+          <div class="chips">
+            <span class="chip"><span class="d d-i"></span>Interactive</span>
+            <span class="chip"><span class="d d-s"></span>Success</span>
+            <span class="chip"><span class="d d-w"></span>Warning</span>
+            <span class="chip"><span class="d d-e"></span>Error</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  return <div style={{width:'100%',height:'100%'}} dangerouslySetInnerHTML={{__html: html}} />;
+}
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="affordance" title="Accent & affordance" subtitle="Same screen, two token sets. Where does your eye go — and what says ‘click me’?">
+        <DCArtboard id="a" label="A · Current — near-white accent" width={460} height={560}><Panel v="va" /></DCArtboard>
+        <DCArtboard id="b" label="B · Proposed — coral accent + widened grey ramp" width={460} height={560}><Panel v="vb" /></DCArtboard>
+      </DCSection>
+      <DCSection id="status" title="Status colors" subtitle="Harmonized to share the coral’s lightness/saturation so toasts feel native to the kit.">
+        <DCArtboard id="sa" label="A · Current status" width={460} height={200}><StatusRow v="va" /></DCArtboard>
+        <DCArtboard id="sb" label="B · Harmonized status" width={460} height={200}><StatusRow v="vb" /></DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

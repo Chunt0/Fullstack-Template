@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="putty">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>putty-ai — Component Library</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 5 C61 4 64 -1 73 5 C82 10 78 19 86 24 C95 30 91 40 93 48 C95 57 99 63 92 71 C86 78 77 73 70 81 C63 89 59 96 49 93 C40 90 36 96 28 89 C21 83 26 75 18 70 C9 65 7 56 9 48 C11 40 3 35 10 27 C16 20 25 25 31 17 C37 10 39 6 50 5 Z' fill='%23e06c75'/%3E%3Cellipse cx='39' cy='47' rx='6' ry='7.5' fill='%23161719'/%3E%3Cellipse cx='62' cy='47' rx='6' ry='7.5' fill='%23161719'/%3E%3Cpath d='M41 63 q4.5 5.5 9 0' fill='none' stroke='%23161719' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="kit.css" />
+  <link rel="stylesheet" href="themes.css" />
+  <link rel="stylesheet" href="components.css" />
+  <style>
+    /* host overrides: kit.css locks the app to 100vh; the showcase scrolls */
+    html, body, #root { height: auto; overflow: auto; }
+    body {
+      background: var(--bg);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1.4px);
+      background-size: 24px 24px;
+    }
+    .sc-wrap { max-width: 1080px; margin: 0 auto; padding: 28px 24px 80px; }
+    .sc-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+    .sc-brand { display: flex; align-items: center; gap: 13px; }
+    .sc-title { font-family: var(--font-sans); font-weight: 700; font-size: 19px; color: var(--heading); letter-spacing: -0.01em; }
+    .sc-subtitle { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+    .sc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 760px) { .sc-grid { grid-template-columns: 1fr; } }
+    .sc-sec { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    .sc-sec-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+    .sc-sec-head h2 { font-family: var(--font-sans); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; }
+    .sc-sec-head span { font-size: 11.5px; color: var(--muted); }
+    .sc-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .sc-charts > .pa-card:last-child { grid-column: 1 / -1; }
+    @media (max-width: 680px) { .sc-charts { grid-template-columns: 1fr; } }
+    .sc-chart-title { font-size: 12.5px; font-weight: 600; color: var(--fg); margin-bottom: 10px; }
+    .pa-card .pa-legend { margin-top: 10px; }
+    .sc-toasts { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 40; }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" data-presets="react,typescript" src="controls.tsx"></script>
+  <script type="text/babel" data-presets="react,typescript" src="overlays.tsx"></script>
+  <script type="text/babel" data-presets="react,typescript" src="data.tsx"></script>
+  <script type="text/babel" data-presets="react,typescript" src="showcase.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!-- @dsCard group="Components" --><!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_tokens.css"><link rel="stylesheet" href="../ui_kits/putty-app/components.css"></head><body><div class="card" style="display:flex;gap:18px;">
+<div class="pa-field" style="flex:1;">
+  <label class="pa-label">Endpoint name</label>
+  <div class="pa-input-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg><input class="pa-input" value="llama-3.1-8b-local"></div>
+  <span class="pa-hint">Default state with leading icon.</span>
+</div>
+<div class="pa-field" style="flex:1;">
+  <label class="pa-label">API key <span class="pa-req">*</span></label>
+  <input class="pa-input" aria-invalid="true" placeholder="sk-…">
+  <span class="pa-error-text"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16" r="0.6" fill="currentColor"/></svg>This field is required.</span>
+</div>
+<div class="pa-field" style="flex:1;">
+  <label class="pa-label">Quantization</label>
+  <div class="pa-select-wrap"><select class="pa-select-native"><option>Q4_K_M</option></select><span class="pa-chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span></div>
+  <input class="pa-input" value="disabled" disabled style="margin-top:8px;">
+</div>
+</div></body></html>

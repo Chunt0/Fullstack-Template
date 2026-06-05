@@ -1,18 +1,15 @@
-<!-- @dsCard group="Components" --><!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_tokens.css"><style>
-.wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:10px;font-family:var(--font-sans);font-weight:600;font-size:14px;border:1px solid var(--border);color:var(--fg);background:var(--panel);cursor:pointer;}
-.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--on-accent);border:none;}
-.btn.hov{transform:translateY(-1px);border-color:var(--accent);}
-.icn{width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;}
-.icn.act{color:var(--accent);border-color:var(--accent);}
-.cap{font-family:var(--font-mono);font-size:9.5px;color:var(--muted);text-align:center;margin-top:6px;}
-.col{display:flex;flex-direction:column;align-items:center;}
-</style></head><body><div class="card">
-<div class="lbl" style="margin-bottom:12px;">Buttons</div>
-<div class="wrap">
-  <div class="col"><span class="btn primary">Get started</span><span class="cap">primary</span></div>
-  <div class="col"><span class="btn">View on GitHub</span><span class="cap">secondary</span></div>
-  <div class="col"><span class="btn hov">Hover</span><span class="cap">hover · lift+border</span></div>
-  <div class="col"><span class="icn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span><span class="cap">icon</span></div>
-  <div class="col"><span class="icn act"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></span><span class="cap">icon active</span></div>
-</div></div></body></html>
+<!-- @dsCard group="Components" --><!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_tokens.css"><link rel="stylesheet" href="../ui_kits/putty-app/components.css"></head><body><div class="card" style="display:flex;flex-direction:column;gap:14px;">
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+  <button class="pa-btn pa-btn-primary"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>Serve model</button>
+  <button class="pa-btn pa-btn-secondary">Cancel</button>
+  <button class="pa-btn pa-btn-ghost">Skip</button>
+  <button class="pa-btn pa-btn-danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Delete</button>
+  <span class="pa-icon-accent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+  <button class="pa-btn pa-btn-primary pa-btn-sm">Small</button>
+  <button class="pa-btn pa-btn-secondary pa-btn-sm">Export</button>
+  <button class="pa-btn pa-btn-primary pa-btn-lg">Large action</button>
+  <button class="pa-btn pa-btn-secondary" disabled>Disabled</button>
+</div>
+</div></body></html>

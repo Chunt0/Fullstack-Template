@@ -13,6 +13,7 @@ type SidebarProps = {
   onSelectSession: (id: string) => void;
   onSelectTool: (tool: string) => void;
   onBrandClick: () => void;
+  onBurger?: () => void;
 };
 
 const TOOLS: { id: string; label: string; Icon: any }[] = [
@@ -29,11 +30,11 @@ const TOOLS: { id: string; label: string; Icon: any }[] = [
 ];
 
 function Sidebar(props: SidebarProps) {
-  const { sessions, activeSession, activeTool, userName, onNewChat, onSelectSession, onSelectTool, onBrandClick } = props;
+  const { sessions, activeSession, activeTool, userName, onNewChat, onSelectSession, onSelectTool, onBrandClick, onBurger } = props;
   return (
     <nav className="sb" aria-label="Sidebar">
       <div className="sb-head">
-        <button className="sb-burger" title="Toggle sidebar" aria-label="Toggle sidebar"><Icons.Menu size={18} /></button>
+        <button className="sb-burger" title="Toggle sidebar" aria-label="Toggle sidebar" onClick={onBurger}><Icons.Menu size={18} /></button>
         <div className="sb-brand" onClick={onBrandClick} title="New chat">
           <span className="wm">putty-ai</span>
         </div>
