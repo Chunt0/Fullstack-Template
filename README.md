@@ -13,6 +13,23 @@ features into an already-wired skeleton — with an AI agent or by hand.
 
 ---
 
+## Look & feel
+
+Skinned with the **putty-ai** monochrome design system — an ink canvas, Inter +
+Fira Code, borders over shadows, and a single coral mascot as the only pop of
+color. Ships dark (the default) and a monochrome light variant; the whole
+shadcn/Radix primitive library inherits the look from CSS tokens.
+
+| Home (dark) | Reference CRUD page (dark) |
+|---|---|
+| ![Home — putty-ai dark](docs/screenshots/home-dark.png) | ![Announcements CRUD page](docs/screenshots/announcements-dark.png) |
+
+| Home (light) |
+|---|
+| ![Home — monochrome light](docs/screenshots/home-light.png) |
+
+---
+
 ## Why this exists
 
 Most "starters" hand you a pile of dependencies and a blank `App.tsx`. You still
