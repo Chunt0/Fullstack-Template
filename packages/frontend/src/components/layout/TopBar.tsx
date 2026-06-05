@@ -1,7 +1,8 @@
-import { Monitor, Moon, Sun } from 'lucide-react'
+import { Check, Palette } from 'lucide-react'
 import { PuttyMascot } from '@/components/brand/PuttyMascot'
 import { useTheme } from '@/components/layout/ThemeProvider'
 import { APP_NAME } from '@/lib/config'
+import { THEMES } from '@/lib/themes'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -11,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 export function TopBar() {
-  const { setTheme, resolvedTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   return (
     <header className="flex h-14 items-center justify-between border-b border-border bg-card px-5">
       <div className="flex items-center gap-2 md:hidden">
@@ -21,20 +22,30 @@ export function TopBar() {
       <div className="ml-auto">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label="Toggle theme">
-              {resolvedTheme === 'dark' ? <Moon /> : <Sun />}
+            <Button variant="ghost" size="icon" aria-label="Change theme">
+              <Palette />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onSelect={() => setTheme('light')}>
-              <Sun /> Light
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => setTheme('dark')}>
-              <Moon /> Dark
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => setTheme('system')}>
-              <Monitor /> System
-            </DropdownMenuItem>
+          <DropdownMenuContent align="end" className="max-h-[70vh] overflow-y-auto">
+            {THEMES.map((t) => (
+              <DropdownMenuItem
+                key={t.key}
+                onSelect={() => setTheme(t.key)}
+                className="justify-between gap-3"
+              >
+                <span className="flex items-center gap-2.5">
+                  <span
+                    aria-hidden
+                    className="size-4 shrink-0 rounded-full border border-border"
+                    style={{
+                      background: `linear-gradient(135deg, ${t.swatch.bg} 50%, ${t.swatch.accent} 50%)`,
+                    }}
+                  />
+                  {t.label}
+                </span>
+                {theme === t.key && <Check className="text-primary" />}
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

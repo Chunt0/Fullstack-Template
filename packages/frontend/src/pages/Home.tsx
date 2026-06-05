@@ -1,3 +1,4 @@
+import { Palette } from 'lucide-react'
 import { PuttyMascot } from '@/components/brand/PuttyMascot'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { APP_NAME, APP_SLOGAN } from '@/lib/config'
@@ -27,11 +28,13 @@ export default function Home() {
         <Card>
           <CardHeader>
             <CardTitle>Design system</CardTitle>
-            <CardDescription>monochrome — Inter + Fira Code</CardDescription>
+            <CardDescription>coral accent · 18 themes · Inter + Fira Code</CardDescription>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground">
             Compose pages from <code>components/ui</code>, <code>feedback</code>, and{' '}
-            <code>patterns</code>. See <code>docs/DESIGN_SYSTEM.md</code>.
+            <code>patterns</code>. Switch any of the 18 themes from the{' '}
+            <Palette className="inline size-3.5 align-text-bottom" aria-hidden /> in the top bar.
+            See <code>docs/DESIGN_SYSTEM.md</code>.
           </CardContent>
         </Card>
       </div>

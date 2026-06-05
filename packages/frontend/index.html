@@ -1,10 +1,22 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" data-theme="putty">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/brand/putty-blob.svg" />
     <title>putty-ai</title>
+    <!-- Apply the stored theme before first paint so there's no flash. The light
+         theme set must stay in sync with lib/themes.ts. -->
+    <script>
+      (function () {
+        try {
+          var LIGHT = ['putty-light', 'light', 'paper', 'lavender', 'cute']
+          var t = localStorage.getItem('app-theme') || 'putty'
+          document.documentElement.dataset.theme = t
+          document.documentElement.classList.toggle('dark', LIGHT.indexOf(t) === -1)
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

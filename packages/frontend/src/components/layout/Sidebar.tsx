@@ -21,7 +21,7 @@ export function Sidebar() {
               cn(
                 'group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                 isActive
-                  ? 'bg-accent text-foreground'
+                  ? 'bg-primary/10 text-foreground'
                   : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground',
               )
             }
@@ -30,8 +30,10 @@ export function Sidebar() {
               <>
                 <r.icon
                   className={cn(
-                    'size-4 transition-opacity',
-                    isActive ? 'opacity-100' : 'opacity-50 group-hover:opacity-100',
+                    'size-4 transition-[opacity,color]',
+                    isActive
+                      ? 'text-primary opacity-100'
+                      : 'opacity-50 group-hover:opacity-100',
                   )}
                 />
                 {r.label}

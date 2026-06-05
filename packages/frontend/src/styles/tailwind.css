@@ -14,88 +14,240 @@
 @font-face { font-family: 'Fira Code'; font-weight: 600; font-style: normal; font-display: swap; src: url('/fonts/FiraCode-SemiBold.woff2') format('woff2'); }
 
 /* ----------------------------------------------------------------------------
-   TOKENS — putty-ai monochrome. Dark (.dark) is the canonical "ink" look;
-   :root is a monochrome light counterpart so the theme toggle stays meaningful.
-   Coral (--brand) is reserved for the mascot/mark only — never UI chrome.
+   TOKENS — putty-ai design system, theme-driven.
+
+   The kit's raw hex tokens (--bg / --panel / --accent / --border …) are the
+   source of truth. They live in `[data-theme="<key>"]` blocks below (18 themes,
+   verbatim from putty-ai-design/themes.css) and are bridged to the app's
+   semantic Tailwind colors in `@theme inline`. Re-skin by changing `data-theme`
+   on <html> (ThemeProvider does this) — never by editing component classes.
+
+   :root holds only the theme-independent baseline (fonts, shape, motion, the
+   status/chart palette, ambient-texture tints). Base colors come from the
+   active [data-theme]; <html data-theme="putty"> is the hardcoded default so
+   there is no flash before JS runs. accent-solid is set ONLY by putty/
+   putty-light so other themes fall back to their own --accent (see --color-primary).
    ------------------------------------------------------------------------- */
 :root {
-  /* light — monochrome inverted (white canvas, ink text) */
-  --background: 0 0% 100%;
-  --foreground: 240 7% 9%;
-  --card: 0 0% 100%;
-  --card-foreground: 240 7% 9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 240 7% 9%;
-  --primary: 240 7% 12%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 220 14% 96%;
-  --secondary-foreground: 240 7% 12%;
-  --muted: 220 14% 96%;
-  --muted-foreground: 220 6% 45%;
-  --accent: 220 14% 94%;
-  --accent-foreground: 240 7% 12%;
-  --destructive: 357 64% 54%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 220 13% 88%;
-  --input: 220 13% 84%;
-  --ring: 240 7% 40%;
+  /* status / semantic — shared across themes (alpha tints work on dark + light) */
+  --green: #5cc28d;
+  --gold: #e0a95e;
+  --warn: #e0a95e;
+  --error: #e0686e;
+  --success-bg: rgba(92, 194, 141, 0.13);
+  --warn-bg: rgba(224, 169, 94, 0.14);
+  --error-bg: rgba(224, 104, 110, 0.14);
+  --accent-bg: rgba(224, 108, 117, 0.13);
+
+  /* categorical chart palette — coral always leads (brand / primary series) */
+  --chart-1: #e06c75;
+  --chart-2: #5cc28d;
+  --chart-3: #6aa6e0;
+  --chart-4: #e0a95e;
+  --chart-5: #b58be0;
+  --chart-6: #54ccce;
+  --chart-grid: rgba(255, 255, 255, 0.07);
+  --chart-axis: var(--muted);
+
+  /* coral focus ring + mascot glow (the brand mark is always coral) */
+  --focus: rgba(224, 108, 117, 0.55);
+  --brand-glow: rgba(224, 108, 117, 0.4);
+
+  /* ambient texture tints — overridden for light themes below */
+  --dot-grid: rgba(255, 255, 255, 0.045);
+  --glow-soft: rgba(255, 255, 255, 0.05);
+
+  /* shape — inputs 4px · default 8px · buttons/code 10px · big cards 18px */
   --radius: 0.5rem;
 
-  /* brand pop — coral mascot only */
-  --brand: 355 65% 65%;
-  --brand-highlight: 353 84% 83%;
-  --brand-glow: rgba(224, 108, 117, 0.4);
+  /* signature easing */
+  --ease-brand: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.dark {
-  /* putty ink — the hero look */
-  --background: 240 7% 6%;
-  --foreground: 220 7% 92%;
-  --card: 220 6% 9%;
-  --card-foreground: 220 7% 92%;
-  --popover: 220 6% 9%;
-  --popover-foreground: 220 7% 92%;
-  --primary: 220 7% 92%;
-  --primary-foreground: 240 7% 6%;
-  --secondary: 228 7% 14%;
-  --secondary-foreground: 220 7% 92%;
-  --muted: 228 8% 12%;
-  --muted-foreground: 220 5% 56%;
-  --accent: 228 7% 14%;
-  --accent-foreground: 220 7% 92%;
-  --destructive: 357 66% 64%;
-  --destructive-foreground: 240 7% 6%;
-  --border: 225 8% 20%;
-  --input: 225 6% 24%;
-  --ring: 220 7% 92%;
-
-  --brand: 355 65% 65%;
-  --brand-highlight: 353 84% 83%;
-  --brand-glow: rgba(224, 108, 117, 0.4);
+/* ============================================================================
+   THEMES — 18 built-in skins, lifted verbatim from putty-ai-design/themes.css.
+   Base 5 colors are exact from the source app; secondary tokens are derived.
+   Set data-theme="<key>" on <html> to re-skin the whole UI.
+   ============================================================================ */
+[data-theme="putty"]{ /* monochrome house brand — coral interactive accent (default) */
+  --bg: #0e0e10; --bg2: #191a1d; --panel: #1b1c1f; --panel2: #252629; --surface-3: #2c2d31;
+  --fg: #eaeaec; --heading: #ffffff; --muted: #93969c; --faint: #3d3e44;
+  --accent: #e06c75; --accent2: #ef8088; --on-accent: #ffffff;
+  --accent-solid: #c2454f; --accent-solid-hover: #cf5560; --accent-solid-press: #a83843;
+  --border: #313338; --border-2: #42444a; --brand-putty: #e06c75; --user-bubble: #252629;
+  --green: #5cc28d; --gold: #e0a95e; --error: #e0686e;
+}
+[data-theme="putty-light"]{ /* house brand — light mode (pure-grey paper, coral accent) */
+  --bg: #f5f5f6; --bg2: #ffffff; --panel: #ffffff; --panel2: #eeeef0; --surface-3: #e8e8eb;
+  --fg: #1b1c1f; --heading: #0e0e10; --muted: #6b6e74; --faint: #d8d9dc;
+  --accent: #c2454f; --accent2: #d15863; --on-accent: #ffffff;
+  --accent-solid: #c2454f; --accent-solid-hover: #ad3a43; --accent-solid-press: #97303a;
+  --focus: rgba(194, 69, 79, 0.32); --chart-axis: #6b6e74;
+  --border: #e3e3e6; --border-2: #cdced2; --brand-putty: #e06c75; --user-bubble: #eeeef0;
+  --green: #2e9d6b; --gold: #a9792a; --error: #cf4a52;
+  --success-bg: rgba(46, 157, 107, 0.12); --warn-bg: rgba(169, 121, 42, 0.13);
+  --error-bg: rgba(207, 74, 82, 0.12); --accent-bg: rgba(194, 69, 79, 0.10);
+  --chart-1: #d15863; --chart-2: #2e9d6b; --chart-3: #3f7fc4; --chart-4: #bb842f;
+  --chart-5: #8b5fc0; --chart-6: #2f9fa1; --chart-grid: rgba(0, 0, 0, 0.08);
+}
+[data-theme="dark"]{ /* Original */
+  --bg: #282c34; --bg2: #21252b; --panel: #111111; --panel2: #1f2628; --surface-3: #273235;
+  --fg: #9cdef2; --heading: #c0eaf7; --muted: #688e9d; --faint: #304852;
+  --accent: #e06c75; --accent2: #e9969d; --on-accent: #ffffff;
+  --border: #355a66; --border-2: #4a7482; --brand-putty: #e06c75; --user-bubble: #21252b;
+}
+[data-theme="light"]{ /* Light */
+  --bg: #f0ebe3; --bg2: #f5f2ed; --panel: #faf6f0; --panel2: #eae6df; --surface-3: #e0dcd5;
+  --fg: #5a5248; --heading: #3e3831; --muted: #9e978e; --faint: #dfd9cf;
+  --accent: #c47d5a; --accent2: #b56741; --on-accent: #ffffff;
+  --border: #d4cdc2; --border-2: #bcb4aa; --brand-putty: #c47d5a; --user-bubble: #f5f2ed;
+}
+[data-theme="midnight"]{ /* Midnight */
+  --bg: #0d1117; --bg2: #070a0d; --panel: #161b22; --panel2: #282d34; --surface-3: #33383f;
+  --fg: #c9d1d9; --heading: #e1e5ea; --muted: #747b82; --faint: #22272e;
+  --accent: #f85149; --accent2: #fa807a; --on-accent: #ffffff;
+  --border: #30363d; --border-2: #4f555c; --brand-putty: #f85149; --user-bubble: #070a0d;
+}
+[data-theme="paper"]{ /* Paper */
+  --bg: #faf8f5; --bg2: #ffffff; --panel: #ffffff; --panel2: #ebebeb; --surface-3: #e0dfdf;
+  --fg: #3b3836; --heading: #201f1e; --muted: #918e8c; --faint: #e4e0da;
+  --accent: #c5ac4a; --accent2: #ae9638; --on-accent: #ffffff;
+  --border: #d5d0c8; --border-2: #b6b2ab; --brand-putty: #c5ac4a; --user-bubble: #ffffff;
+}
+[data-theme="cyberpunk"]{ /* Cyberpunk */
+  --bg: #0a0a0f; --bg2: #040406; --panel: #12101a; --panel2: #122631; --surface-3: #12343e;
+  --fg: #0ff0fc; --heading: #37f3fd; --muted: #0d8991; --faint: #61219f;
+  --accent: #e040fb; --accent2: #e872fc; --on-accent: #ffffff;
+  --border: #9b30ff; --border-2: #7f56fe; --brand-putty: #e040fb; --user-bubble: #040406;
+}
+[data-theme="retrowave"]{ /* Retrowave */
+  --bg: #1a1a2e; --bg2: #141424; --panel: #16213e; --panel2: #2b2541; --surface-3: #382743;
+  --fg: #e94560; --heading: #ed697f; --muted: #8c324a; --faint: #3c2a61;
+  --accent: #e94560; --accent2: #ee7387; --on-accent: #ffffff;
+  --border: #533483; --border-2: #71377c; --brand-putty: #e94560; --user-bubble: #141424;
+}
+[data-theme="forest"]{ /* Forest */
+  --bg: #1b2a1b; --bg2: #152115; --panel: #142414; --panel2: #233622; --surface-3: #2c402b;
+  --fg: #a8d5a2; --heading: #c2e2be; --muted: #698865; --faint: #2f512f;
+  --accent: #7cb871; --accent2: #9bc993; --on-accent: #ffffff;
+  --border: #3d6b3d; --border-2: #528051; --brand-putty: #7cb871; --user-bubble: #152115;
+}
+[data-theme="ocean"]{ /* Ocean */
+  --bg: #0b1a2c; --bg2: #081320; --panel: #091422; --panel2: #122738; --surface-3: #183245;
+  --fg: #64d2ff; --heading: #8ddeff; --muted: #3c7fa0; --faint: #163a57;
+  --accent: #4facfe; --accent2: #82c4fe; --on-accent: #ffffff;
+  --border: #1e5074; --border-2: #2c6a90; --brand-putty: #4facfe; --user-bubble: #081320;
+}
+[data-theme="ume"]{ /* Ume */
+  --bg: #2b1b2e; --bg2: #221524; --panel: #1e1420; --panel2: #342534; --surface-3: #403040;
+  --fg: #f5c2e7; --heading: #fbe5f5; --muted: #9a7794; --faint: #523559;
+  --accent: #f5a0c0; --accent2: #facedf; --on-accent: #ffffff;
+  --border: #6c4675; --border-2: #875f8c; --brand-putty: #f5a0c0; --user-bubble: #221524;
+}
+[data-theme="copper"]{ /* Copper */
+  --bg: #1c1410; --bg2: #120d0a; --panel: #140f0a; --panel2: #292119; --surface-3: #362c22;
+  --fg: #e8c39e; --heading: #f0d7bf; --muted: #8c745e; --faint: #543b25;
+  --accent: #d4764e; --accent2: #de9677; --on-accent: #ffffff;
+  --border: #7a5533; --border-2: #906b48; --brand-putty: #d4764e; --user-bubble: #120d0a;
+}
+[data-theme="terminal"]{ /* Terminal */
+  --bg: #000000; --bg2: #000000; --panel: #0a0a0a; --panel2: #092310; --surface-3: #083113;
+  --fg: #00ff41; --heading: #29ff5f; --muted: #008c24; --faint: #002300;
+  --accent: #00ff41; --accent2: #33ff67; --on-accent: #111111;
+  --border: #003b00; --border-2: #00620d; --brand-putty: #00ff41; --user-bubble: #000000;
+}
+[data-theme="organs"]{ /* Organs */
+  --bg: #0a0406; --bg2: #000000; --panel: #15080a; --panel2: #2b1e1d; --surface-3: #382b28;
+  --fg: #efe1c8; --heading: #f8f2e8; --muted: #887e71; --faint: #270e11;
+  --accent: #c83240; --accent2: #d55864; --on-accent: #ffffff;
+  --border: #3a1519; --border-2: #5e3e3c; --brand-putty: #c83240; --user-bubble: #000000;
+}
+[data-theme="lavender"]{ /* Lavender */
+  --bg: #f3eef8; --bg2: #fbf9fc; --panel: #faf7ff; --panel2: #e7e4ee; --surface-3: #dcd8e3;
+  --fg: #3d3551; --heading: #262132; --muted: #8f889c; --faint: #ddd4e8;
+  --accent: #9b6dcc; --accent2: #864fc1; --on-accent: #ffffff;
+  --border: #cec3de; --border-2: #b1a7c2; --brand-putty: #9b6dcc; --user-bubble: #fbf9fc;
+}
+[data-theme="gpt"]{ /* GPT */
+  --bg: #212121; --bg2: #2f2f2f; --panel: #171717; --panel2: #2c2c2c; --surface-3: #393939;
+  --fg: #ececec; --heading: #ffffff; --muted: #919191; --faint: #353535;
+  --accent: #949494; --accent2: #7f7f7f; --on-accent: #ffffff;
+  --border: #424242; --border-2: #646464; --brand-putty: #949494; --user-bubble: #2f2f2f;
+}
+[data-theme="claude"]{ /* Claude */
+  --bg: #262624; --bg2: #1e1e1d; --panel: #30302e; --panel2: #444441; --surface-3: #504f4d;
+  --fg: #f5f4f0; --heading: #ffffff; --muted: #989794; --faint: #3c3c39;
+  --accent: #c6613f; --accent2: #d28166; --on-accent: #ffffff;
+  --border: #4a4a47; --border-2: #6c6c69; --brand-putty: #c6613f; --user-bubble: #1e1e1d;
+}
+[data-theme="cute"]{ /* Cute */
+  --bg: #fff0f5; --bg2: #ffffff; --panel: #fff8fa; --panel2: #fbe9ef; --surface-3: #f8e0e8;
+  --fg: #d4608a; --heading: #c9386c; --muted: #e7a1ba; --faint: #f6d3df;
+  --accent: #ff6b9d; --accent2: #ff4282; --on-accent: #ffffff;
+  --border: #f0c0d0; --border-2: #eaadc2; --brand-putty: #ff6b9d; --user-bubble: #ffffff;
 }
 
+/* Light-canvas themes get dark ambient-texture tints (white dots would vanish). */
+[data-theme="putty-light"],
+[data-theme="light"],
+[data-theme="paper"],
+[data-theme="lavender"],
+[data-theme="cute"] {
+  --dot-grid: rgba(0, 0, 0, 0.05);
+  --glow-soft: rgba(0, 0, 0, 0.025);
+}
+
+/* ----------------------------------------------------------------------------
+   BRIDGE — map the app's semantic Tailwind colors onto the kit's raw tokens.
+   `inline` keeps these as live var() references, so every [data-theme] override
+   flows straight through to `bg-*` / `text-*` / `border-*` utilities.
+
+   The headline change vs. the old monochrome bridge: `primary` is now the CORAL
+   interactive accent (was near-white). Primary buttons, links, focus ring,
+   active states all read the theme accent.
+   ------------------------------------------------------------------------- */
 @theme inline {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-brand: hsl(var(--brand));
-  --color-brand-highlight: hsl(var(--brand-highlight));
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-heading: var(--heading);
+  --color-card: var(--panel);
+  --color-card-foreground: var(--fg);
+  --color-popover: var(--panel);
+  --color-popover-foreground: var(--fg);
+  --color-surface-3: var(--surface-3);
+
+  /* coral interactive accent — AA-safe --accent-solid for text-bearing fills,
+     falling back to the theme's --accent when a theme sets no solid variant. */
+  --color-primary: var(--accent-solid, var(--accent));
+  --color-primary-foreground: var(--on-accent);
+  --color-accent-strong: var(--accent);
+
+  --color-secondary: var(--panel2);
+  --color-secondary-foreground: var(--fg);
+  --color-muted: var(--bg2);
+  --color-muted-foreground: var(--muted);
+
+  /* shadcn `accent` = the neutral hover/raised fill (ghost hover, menu item) */
+  --color-accent: var(--panel2);
+  --color-accent-foreground: var(--fg);
+
+  --color-destructive: var(--error);
+  --color-destructive-foreground: var(--on-accent);
+
+  --color-border: var(--border);
+  --color-input: var(--border-2);
+  --color-ring: var(--accent);
+
+  /* brand mark + status + data-viz, exposed as utilities */
+  --color-brand: var(--brand-putty);
+  --color-success: var(--green);
+  --color-warning: var(--gold);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
 
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -112,55 +264,57 @@
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    border-color: var(--border);
   }
   body {
     margin: 0;
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: var(--bg);
+    color: var(--fg);
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-  }
-
-  /* Ambient texture — faint white dot-grid + soft corner glows. Ink-only;
-     light mode keeps a barely-there grid. */
-  .dark body {
+    /* Ambient texture — faint dot-grid + soft corner glows, tinted per theme. */
     background-image:
-      radial-gradient(900px 480px at 88% -8%, rgba(255, 255, 255, 0.05), transparent 60%),
-      radial-gradient(760px 480px at 0% 0%, rgba(255, 255, 255, 0.03), transparent 55%),
-      radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1.4px);
+      radial-gradient(900px 480px at 88% -8%, var(--glow-soft), transparent 60%),
+      radial-gradient(760px 480px at 0% 0%, var(--glow-soft), transparent 55%),
+      radial-gradient(circle, var(--dot-grid) 1px, transparent 1.4px);
     background-size: 100% 100%, 100% 100%, 24px 24px;
     background-attachment: fixed;
   }
 
+  /* Suppress color transitions mid theme-switch so var()-driven bg/color can't
+     get stuck part-way through a fade (ThemeProvider sets the attribute). */
+  html[data-theme-switching] * {
+    transition: none !important;
+  }
+
   ::selection {
-    background: rgba(255, 255, 255, 0.16);
+    background: color-mix(in oklab, var(--accent) 26%, transparent);
   }
 
   /* Mono / brand-voice inline code */
   code {
     font-family: var(--font-mono);
     font-size: 0.85em;
-    background: hsl(var(--muted));
-    border: 1px solid hsl(var(--border));
+    background: var(--bg2);
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 0.1em 0.4em;
   }
 
-  /* Quiet scrollbars in the ink theme */
-  .dark ::-webkit-scrollbar {
+  /* Quiet, token-tinted scrollbars */
+  ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
-  .dark ::-webkit-scrollbar-thumb {
-    background: hsl(var(--input));
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-2);
     border-radius: 8px;
     border: 2px solid transparent;
     background-clip: padding-box;
   }
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground));
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted);
     background-clip: padding-box;
   }
 }
@@ -172,7 +326,7 @@
     font-size: 0.6875rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: hsl(var(--foreground));
+    color: var(--heading);
   }
   /* Slogan: italic mono whisper */
   .od-slogan {
@@ -180,10 +334,14 @@
     font-style: italic;
     font-size: 0.75rem;
     letter-spacing: 0.3px;
-    color: hsl(var(--muted-foreground));
+    color: var(--muted);
   }
-  /* Coral mascot glow — the single pop of color */
+  /* Coral mascot glow — the brand mark's soft halo */
   .putty-glow {
     filter: drop-shadow(0 5px 16px var(--brand-glow));
+  }
+  /* Soft coral lift under primary affordances (kit's --shadow-glow) */
+  .shadow-accent-glow {
+    box-shadow: 0 5px 16px -4px color-mix(in oklab, var(--accent) 55%, transparent);
   }
 }

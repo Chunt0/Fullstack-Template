@@ -15,18 +15,20 @@ features into an already-wired skeleton — with an AI agent or by hand.
 
 ## Look & feel
 
-Skinned with the **putty-ai** monochrome design system — an ink canvas, Inter +
-Fira Code, borders over shadows, and a single coral mascot as the only pop of
-color. Ships dark (the default) and a monochrome light variant; the whole
-shadcn/Radix primitive library inherits the look from CSS tokens.
+Skinned with the **putty-ai** design system — an ink canvas, Inter + Fira Code,
+borders over shadows, and **coral as the interactive accent** (buttons, links,
+focus, active nav). Ships **18 runtime-switchable themes** (putty mono + light,
+Ocean, Midnight, Claude, Terminal, Cute…) selectable from the top-bar palette;
+the whole shadcn/Radix primitive library re-skins from `data-theme` CSS tokens —
+no component changes.
 
 | Home (dark) | Reference CRUD page (dark) |
 |---|---|
 | ![Home — putty-ai dark](docs/screenshots/home-dark.png) | ![Announcements CRUD page](docs/screenshots/announcements-dark.png) |
 
-| Home (light) |
+| Home (Putty Light) |
 |---|
-| ![Home — monochrome light](docs/screenshots/home-light.png) |
+| ![Home — putty light](docs/screenshots/home-light.png) |
 
 ---
 
@@ -113,7 +115,7 @@ security headers · health/whoami endpoints · optional Swagger.
 **Frontend** — type-safe API client (`api.*` + `unwrap`) · TanStack Query setup ·
 manifest-driven router + sidebar · UI primitives (Radix + CVA) · CRUD patterns
 (`DataTable` / `FormDialog` / `ConfirmDialog`) · loading/empty/error states ·
-theme toggle · error boundary.
+18-theme switcher · error boundary.
 
 **Ops** — single multi-stage Docker image · `docker compose` · backup/restore
 scripts · pre-commit hooks · spec drift-guard test.

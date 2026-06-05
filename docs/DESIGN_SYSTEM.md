@@ -5,16 +5,32 @@ primitive before writing a custom component.
 
 ## Tokens
 
-Semantic CSS variables in `src/styles/tailwind.css` (`:root` + `.dark`), exposed
-as Tailwind utilities via `@theme inline`. Use the semantic colors, never raw
-ones:
+`src/styles/tailwind.css` is theme-driven. The kit's raw hex tokens
+(`--bg` / `--panel` / `--accent` / `--border` …) live in `[data-theme="<key>"]`
+blocks and are **bridged** to the app's semantic Tailwind colors in
+`@theme inline`. Use the semantic colors, never raw ones:
 
 `bg-background` `text-foreground` · `bg-card` · `bg-primary text-primary-foreground`
-· `bg-secondary` · `bg-muted text-muted-foreground` · `bg-accent` · `bg-destructive`
-· `border-border` · `border-input` · `ring-ring`. Radius: `rounded-sm|md|lg`.
+· `bg-secondary` · `bg-muted text-muted-foreground` · `bg-accent` (neutral hover
+fill) · `bg-destructive` · `bg-success` · `bg-warning` · `border-border` ·
+`border-input` · `ring-ring` · `bg-chart-1…6`. Radius: `rounded-sm|md|lg|xl`.
 
-Dark mode: `ThemeProvider` toggles `.dark` on `<html>` (light/dark/system,
-persisted). Use `focusRing` from `lib/utils` for keyboard focus.
+**`primary` is the coral interactive accent** (was monochrome) — primary
+buttons, links, focus ring, and active nav all read the active theme's accent.
+It maps to `--accent-solid` (AA-safe on fills) and falls back to `--accent` for
+themes that define no solid variant. Re-skin by changing tokens, never component
+classes.
+
+## Theming
+
+`ThemeProvider` sets `data-theme="<key>"` on `<html>` (persisted to
+`localStorage`, applied pre-paint by an inline script in `index.html` to avoid
+flash) and toggles `.dark` for dark-canvas themes. The 18 built-in themes live
+in `lib/themes.ts` (mirrors `putty-ai-design/themes.ts`); the `TopBar` palette
+menu switches between them live. `useTheme()` exposes `{ theme, setTheme,
+resolvedTheme }` — `resolvedTheme` ('light'|'dark') is for theme-aware widgets
+like sonner. To add a theme: add its `[data-theme]` block to `tailwind.css` and
+one row to `lib/themes.ts`.
 
 ## Primitives (`components/ui/`)
 
@@ -42,7 +58,7 @@ ad-hoc spinners. `DataTable` wires all three for you.
 ## Layout (`components/layout/`)
 
 `AppShell` (Sidebar + TopBar + `<Outlet/>`) · `Sidebar` (built from the route
-manifest) · `TopBar` (theme toggle) · `PageHeader` (title + description + actions)
+manifest) · `TopBar` (18-theme palette switcher) · `PageHeader` (title + description + actions)
 · `ThemeProvider`.
 
 ## Archetypes

@@ -1,62 +1,56 @@
 import { createContext, type ReactNode, useContext, useEffect, useMemo, useState } from 'react'
+import { DEFAULT_THEME, getTheme, THEME_KEYS } from '@/lib/themes'
 
-type Theme = 'light' | 'dark' | 'system'
 type Resolved = 'light' | 'dark'
 
 interface ThemeContextValue {
-  theme: Theme
+  /** active theme key (e.g. 'putty', 'ocean') */
+  theme: string
+  /** light/dark classification of the active theme — for theme-aware widgets (sonner) */
   resolvedTheme: Resolved
-  setTheme: (t: Theme) => void
+  setTheme: (key: string) => void
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 const STORAGE_KEY = 'app-theme'
 
-function systemPref(): Resolved {
-  return window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? 'dark' : 'light'
+function readStored(): string {
+  const stored = localStorage.getItem(STORAGE_KEY)
+  return stored && THEME_KEYS.includes(stored) ? stored : DEFAULT_THEME
 }
 
-function applyClass(resolved: Resolved): void {
-  document.documentElement.classList.toggle('dark', resolved === 'dark')
+/** Set data-theme on <html>, toggle .dark for dark canvases, and flash-guard the swap. */
+function applyTheme(key: string): void {
+  const el = document.documentElement
+  const isLight = getTheme(key).light
+  el.dataset.themeSwitching = ''
+  el.dataset.theme = key
+  el.classList.toggle('dark', !isLight)
+  // Clear the no-transition guard on the next frame, once the new tokens have painted.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      delete el.dataset.themeSwitching
+    })
+  })
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(
-    () => (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? 'dark',
-  )
-  const [resolvedTheme, setResolved] = useState<Resolved>(() =>
-    theme === 'system' ? systemPref() : theme,
-  )
+  const [theme, setThemeState] = useState<string>(readStored)
 
   useEffect(() => {
-    const resolved = theme === 'system' ? systemPref() : theme
-    setResolved(resolved)
-    applyClass(resolved)
-  }, [theme])
-
-  useEffect(() => {
-    if (theme !== 'system') return
-    const mq = window.matchMedia?.('(prefers-color-scheme: dark)')
-    if (!mq) return
-    const onChange = () => {
-      const r = systemPref()
-      setResolved(r)
-      applyClass(r)
-    }
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
+    applyTheme(theme)
   }, [theme])
 
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme,
-      resolvedTheme,
-      setTheme: (t) => {
-        localStorage.setItem(STORAGE_KEY, t)
-        setThemeState(t)
+      resolvedTheme: getTheme(theme).light ? 'light' : 'dark',
+      setTheme: (key) => {
+        localStorage.setItem(STORAGE_KEY, key)
+        setThemeState(key)
       },
     }),
-    [theme, resolvedTheme],
+    [theme],
   )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
