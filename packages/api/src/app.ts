@@ -76,7 +76,8 @@ if (staticDir && existsSync(staticDir)) {
   app.get('/*', ({ request, set }) => {
     if (new URL(request.url).pathname.startsWith('/api')) {
       set.status = 404
-      return errorResponse('NOT_FOUND', 'Not found', 'unknown')
+      const requestId = (set.headers[REQUEST_ID_HEADER] as string | undefined) ?? 'unknown'
+      return errorResponse('NOT_FOUND', 'Not found', requestId)
     }
     return Bun.file(`${staticDir}/index.html`)
   })

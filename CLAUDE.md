@@ -29,6 +29,7 @@ brief and just build.
 | Writing UI | `docs/DESIGN_SYSTEM.md` |
 | Logging / adding log calls | `docs/LOGGING.md` |
 | Placement / "where does X go" | `WIRED.md`, then `docs/ARCHITECTURE.md` |
+| "Why is this rule enforced this way?" | `docs/adr/` (architecture decisions) |
 | Before shipping | `GOTCHAS.md`, the pre-expose checklist in `docs/ARCHITECTURE.md` |
 
 Don't read `specs/SEED_SPEC.md` to build features — it's the archived spec that
@@ -76,17 +77,30 @@ Remove it with **`bun run eject:reference`** once your first feature replaces it
 
 ## Conventions (these are enforced — follow them)
 
+Most of these are checked by `tests/conventions.test.ts` (a fitness gate that
+fails the build), so "follow them" is mechanical, not just etiquette.
+
 - **API responses:** return `ok(data, meta?)`; never a bare object. Errors: throw
   an `AppError` subclass (`NotFoundError`, `BadRequestError`, …). The global
-  `onError` makes the envelope.
+  `onError` makes the envelope. *(Gated: each route file must use `ok(`.)*
 - **Validation:** every route input via Elysia `t`. Reuse `lib/schemas.ts` +
-  `lib/pagination.ts`.
+  `lib/pagination.ts`. *(Gated: mutation routes must declare a `body:` schema.)*
 - **Env:** only `lib/env.ts` reads `process.env`. Add new vars there (fail-fast).
+  *(Gated.)*
 - **Frontend data:** all API calls go through `lib/api.ts` (`api.<resource>...`)
   and `unwrap(...)`. Query keys come from a factory, never hand-written arrays.
+  Derive entity types from the API (`Payload<typeof api.x.get>`), never a
+  hand-written `interface` that can drift from the route.
+- **Soft delete:** a table with a `deletedAt` column is hidden, not removed —
+  **every** read of it must filter `isNull(table.deletedAt)` (see the reference
+  route). This one is a convention, not a gate: a static check is too brittle, so
+  it's on you to keep — forget it and you leak deleted rows.
 - **Routes:** API routes register in `routes/index.ts`; pages register in
-  `routes.manifest.ts`. One place each — nothing else to touch.
+  `routes.manifest.ts`. One place each — *except* a new **public** API route,
+  which also needs its path added to `PUBLIC_API_PATHS` in `lib/auth.ts` (else
+  it's auth-gated by default).
 - **Auth:** `lib/auth.ts` (Mode B shared bearer). `user` is on the context.
+- **Docs:** `WIRED.md` must point only at files that exist *(gated)*.
 
 ## Definition of done
 

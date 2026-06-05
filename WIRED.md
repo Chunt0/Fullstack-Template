@@ -12,7 +12,7 @@ One-page index of every wired capability. If it's here, don't rebuild it.
 | Route registration (single barrel) | `routes/index.ts` |
 | Fail-fast env validation | `lib/env.ts` |
 | Auth gate (Mode B shared bearer) | `lib/auth.ts` |
-| Correlation IDs (X-Request-ID) | `lib/correlation.ts` |
+| Correlation IDs (X-Request-ID), set in `onRequest` | `app.ts` |
 | Response envelope `ok()` / `errorResponse()` | `lib/response.ts` |
 | Typed errors (`AppError` + subclasses) | `lib/errors.ts` |
 | Pagination helpers | `lib/pagination.ts` |

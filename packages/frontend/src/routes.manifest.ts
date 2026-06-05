@@ -17,7 +17,7 @@ export interface RouteEntry {
 
 // ── The single source of truth for app pages ─────────────────────────────
 // Add a page: append one entry here. router.tsx builds the routes from this
-// list and Sidebar.tsx builds the nav from it — they cannot drift. (SEED_SPEC §6.3)
+// list and Sidebar.tsx builds the nav from it — they cannot drift. (CLAUDE.md → step 5)
 export const routes: RouteEntry[] = [
   { path: '/', label: 'Home', icon: HomeIcon, Component: lazy(() => import('@/pages/Home')) },
   // REFERENCE-START

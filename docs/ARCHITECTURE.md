@@ -72,9 +72,13 @@ docker compose up -d --build          # http://<host>:3000
 ## Pre-expose checklist
 
 Skip if the app only runs on `localhost`. Run before reaching it from any other
-device, and again whenever you change auth or add a dependency:
+device, and again whenever you change auth or add a dependency. **`bun run
+preflight`** runs the mechanizable items below (marked ⚙) and exits non-zero on
+any failure; the rest you verify by hand.
 
 - [ ] Auth tested by executing a request: unauthed `/api/...` returns **401**.
+- [ ] ⚙ `.env` is not in git, Swagger off, `AUTH_TOKEN` ≥ 32 chars, reference
+      ejected, bundle has no stray secrets, `bun audit` clean — `bun run preflight`.
 - [ ] `.env` is not in git (`git ls-files | grep -E '(^|/)\.env'` → only `.env.example`).
 - [ ] `AUTH_TOKEN` came from `openssl rand -hex 32`, not typed by hand.
 - [ ] `ENABLE_SWAGGER=false`.

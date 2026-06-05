@@ -8,7 +8,7 @@ import { UnauthorizedError } from './errors'
 //   Authorization: Bearer <AUTH_TOKEN>
 // Non-/api paths (the SPA + its assets) are public. To switch to Mode A
 // (no auth), make the derive return `{ user: { id: 'me' } }` unconditionally.
-// See SEED_SPEC §3 for Mode C (login + cookie).
+// See docs/ARCHITECTURE.md → Auth modes for Mode C (login + cookie).
 
 export type User = { id: string } | null
 

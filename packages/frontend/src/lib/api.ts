@@ -14,15 +14,32 @@ export const api = treaty<App>(origin, {
   },
 }).api
 
-/** Unwrap the response envelope or throw a useful Error for TanStack Query. */
-export async function unwrap<T>(
-  promise: Promise<{ data: unknown; error: unknown; status: number }>,
-): Promise<T> {
+/**
+ * Unwrap the response envelope or throw a useful Error for TanStack Query.
+ *
+ * The payload type is INFERRED from the endpoint — `D` is the `ok(...)` envelope
+ * Eden inferred from the route handler, and we return its inner `data`. Don't
+ * pass a type argument: `unwrap(api.x.get())` types itself from the API, so a
+ * route whose response shape changes makes the caller stop compiling. (Pair with
+ * `Payload<…>` below to name that type without re-declaring it by hand.)
+ */
+export async function unwrap<D extends { ok: true; data: unknown }>(
+  promise: Promise<{ data: D | null; error: unknown; status: number }>,
+): Promise<D['data']> {
   const res = await promise
   if (res.error) {
     const body = res.error as { value?: { error?: { message?: string } } }
     throw new Error(body?.value?.error?.message ?? `Request failed (${res.status})`)
   }
-  const envelope = res.data as { ok: boolean; data: T }
-  return envelope.data
+  return (res.data as D).data
 }
+
+/**
+ * The success payload type of an Eden Treaty endpoint method — i.e. the `T` in
+ * the route's `ok(T)`. Derive entity types from the API instead of hand-writing
+ * an interface that can silently drift:
+ *
+ *   type Announcement = Payload<typeof api.announcements.get>[number]
+ */
+export type Payload<F extends (...args: never[]) => Promise<{ data: unknown }>> =
+  NonNullable<Awaited<ReturnType<F>>['data']> extends { ok: true; data: infer P } ? P : never

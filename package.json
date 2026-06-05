@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "check": "bun run type-check && bun run lint && bun run test",
     "check:reference": "bash scripts/check-reference.sh",
+    "preflight": "bash scripts/preflight.sh",
     "eject:reference": "bash scripts/eject-reference.sh",
     "db:generate": "bun --filter '@app/api' db:generate",
     "db:migrate": "bun --filter '@app/api' db:migrate",

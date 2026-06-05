@@ -52,7 +52,7 @@ export class ValidationError extends AppError {
   }
 }
 
-// For calls to internal/upstream services (see SEED_SPEC §16 escape hatch).
+// For calls to internal/upstream services (see docs/ARCHITECTURE.md → Escape hatches).
 export class BadGatewayError extends AppError {
   constructor(message = 'Upstream service error') {
     super(502, 'BAD_GATEWAY', message, false)
